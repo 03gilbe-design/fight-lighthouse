@@ -1,0 +1,106 @@
+{
+ "ali": [
+  {
+   "file": "ali_1.webp",
+   "verso": "R",
+   "fonte": "references/pinterest/hd-tutti/01-692991461445335310.jpg (originale Pinterest)"
+  },
+  {
+   "file": "ali_2.webp",
+   "verso": "C",
+   "fonte": "img/momenti/ali_3.jpg"
+  },
+  {
+   "file": "ali_3.webp",
+   "verso": "C",
+   "fonte": "references/pinterest/fighter-png/06-4925880839803302.jpg"
+  }
+ ],
+ "tyson": [
+  {
+   "file": "tyson_1.webp",
+   "verso": "C",
+   "fonte": "references/pinterest/tyson-hd/hd_3.jpg"
+  },
+  {
+   "file": "tyson_2.webp",
+   "verso": "L",
+   "fonte": "references/pinterest/fighter-png/03-289567451066483677.jpg"
+  }
+ ],
+ "floyd": [
+  {
+   "file": "floyd_1.webp",
+   "verso": "C",
+   "fonte": "references/pinterest/alt-cut/04-298926493987833716.jpg"
+  },
+  {
+   "file": "floyd_2.webp",
+   "verso": "C",
+   "fonte": "references/pinterest/alt-cut/06-820710732097205091.jpg"
+  },
+  {
+   "file": "floyd_3.webp",
+   "verso": "C",
+   "fonte": "references/pinterest/alt-cut/05-298926493987832451.jpg"
+  }
+ ],
+ "khabib": [
+  {
+   "file": "khabib_1.webp",
+   "verso": "C",
+   "fonte": "references/pinterest/fighter-png/08-490259109455400620.jpg"
+  },
+  {
+   "file": "khabib_2.webp",
+   "verso": "R",
+   "fonte": "img/momenti/khabib_4.jpg"
+  }
+ ],
+ "fedor": [
+  {
+   "file": "fedor_1.webp",
+   "verso": "C",
+   "fonte": "references/pinterest/fighter-png/09-107664247339132824.jpg"
+  },
+  {
+   "file": "fedor_2.webp",
+   "verso": "C",
+   "fonte": "references/pinterest/alt-cut/01-556053885211935528.jpg"
+  },
+  {
+   "file": "fedor_3.webp",
+   "verso": "C",
+   "fonte": "references/pinterest/alt-cut/02-613685886756085616.jpg"
+  }
+ ],
+ "topuria": [
+  {
+   "file": "topuria_1.webp",
+   "verso": "C",
+   "fonte": "references/pinterest/hd-tutti/07-604186106303998414.jpg"
+  },
+  {
+   "file": "topuria_2.webp",
+   "verso": "C",
+   "fonte": "references/pinterest/hd-tutti/08-608760074710646166.jpg"
+  }
+ ],
+ "debuttante": [
+  {
+   "file": "debuttante_1.webp",
+   "verso": "L",
+   "fonte": "Telegram sua_44636.jpg (mezzo busto: tagliato sopra la mano dell'altra persona sul guantone)"
+  },
+  {
+   "file": "debuttante_2.webp",
+   "verso": "C",
+   "fonte": "Telegram sua_44637.jpg (senza la scritta in alto)"
+  },
+  {
+   "file": "debuttante_3.webp",
+   "verso": "L",
+   "fonte": "img/momenti/debuttante_6.jpg"
+  }
+ ]
+}

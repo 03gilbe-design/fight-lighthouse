@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Il percorso — Fight Lighthouse</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{--black:#0B0B0B;--white:#F2F0EB;--grey:#8C8A86;--red:#E10600;--red-ink:#120000;--line:#2a2a2a}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--black);color:var(--white)}
+body{font:500 16px/1.55 Archivo,sans-serif}
+a{color:var(--white)}
+.grain{position:fixed;inset:0;pointer-events:none;opacity:.3;background:url(img/grain.png)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(16px,4vw,40px) 90px}
+header{padding:60px 0 30px;border-bottom:2px solid var(--white)}
+.kick{font:600 11px "IBM Plex Mono";letter-spacing:.24em;text-transform:uppercase;color:var(--grey)}
+h1{margin:10px 0 0;font:400 clamp(56px,10vw,130px)/.85 Anton;text-transform:uppercase}
+h1 em{display:block;font:italic 400 .34em/1.2 "Instrument Serif";color:var(--red);text-transform:none;margin-top:10px}
+.intro{max-width:720px;font:400 20px/1.5 "Instrument Serif";margin:22px 0 0}
+.nums{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 0}
+.nums div{border:1.5px solid #333;padding:12px 16px;min-width:150px}
+.nums b{display:block;font:italic 400 40px/1 "Instrument Serif"}
+.nums span{font:600 10px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+h2{margin:56px 0 18px;font:400 clamp(36px,5vw,60px)/.9 Anton;text-transform:uppercase}
+h2 em{font:italic 400 .5em "Instrument Serif";color:var(--red);text-transform:none;margin-left:10px}
+ol.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:70px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+ol.steps li::before{content:counter(s,decimal-leading-zero);font:400 40px/1 Anton;color:var(--red)}
+.req{font:italic 400 22px/1.35 "Instrument Serif"}
+.req q{quotes:"«" "»"}
+.did{margin-top:6px;color:#c9c6c0;font-size:15px}
+.tag{display:inline-block;font:600 9px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;border:1px solid #444;padding:2px 6px;margin-right:6px;color:var(--grey)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+figure{margin:0;background:#141414}
+figure img{display:block;width:100%;height:220px;object-fit:cover;object-position:top}
+figure.tall img{height:320px}
+figcaption{padding:10px 12px;font:600 10px "IBM Plex Mono";letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.cta{display:inline-block;margin-top:30px;background:var(--red);color:var(--red-ink);text-decoration:none;font:400 26px/1 Anton;text-transform:uppercase;padding:18px 26px}
+@media (max-width:640px){ol.steps li{grid-template-columns:44px 1fr}ol.steps li::before{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="wrap">
+<header>
+  <div class="kick">Fight Lighthouse · come è nato questo concept</div>
+  <h1>Il percorso<em>le richieste di Gilberto, una dopo l'altra</em></h1>
+  <p class="intro">Questa interfaccia non è uscita da un template. È nata da una conversazione: reference trovate su Pinterest, bozze disegnate a mano, foto, correzioni continue. Qui sotto ci sono, in ordine, le richieste che hanno portato al risultato.</p>
+  <div class="nums">
+    <div><b>~25</b><span>versioni inviate</span></div>
+    <div><b>7</b><span>fighter</span></div>
+    <div><b>6</b><span>pagine</span></div>
+    <div><b>290</b><span>match veri dal database</span></div>
+  </div>
+</header>
+
+<h2>Da dove è partito <em>bozze e reference di Gilberto</em></h2>
+<div class="grid">
+  <figure class="tall"><img src="img/percorso/bozza_montagna.jpg" alt="Bozza a mano della carriera come montagna"><figcaption>Bozza: la carriera come montagna</figcaption></figure>
+  <figure class="tall"><img src="img/percorso/bozza_radar.jpg" alt="Bozza con picco, win streak, top win"><figcaption>Bozza: picco, serie, top win</figcaption></figure>
+  <figure class="tall"><img src="img/percorso/bozza_ring.jpg" alt="Bozza del ring visto dall'alto"><figcaption>Bozza: lo scontro sul ring</figcaption></figure>
+  <figure><img src="img/percorso/ref_ali.jpg" alt="Poster infografico di Ali"><figcaption>Reference: infografica Ali</figcaption></figure>
+  <figure><img src="img/percorso/ref_tott.jpg" alt="Tale of the tape Khan contro Judah"><figcaption>Reference: tale of the tape</figcaption></figure>
+  <figure><img src="img/percorso/ref_netflix.jpg" alt="Poster Paul contro Tyson"><figcaption>Reference: pannelli rossi</figcaption></figure>
+</div>
+
+<h2>Le richieste <em>in ordine</em></h2>
+<ol class="steps">
+  <li><div><div class="req"><q>Dobbiamo fare l'interfaccia migliore</q> del sito del mio amico, attenzione che il database è pesante.</div><div class="did"><span class="tag">analisi</span>Letto il progetto senza scaricare il database (1,6 GB): solo il codice dell'interfaccia.</div></div></li>
+  <li><div><div class="req">Ti ho mandato delle reference: voglio che si sviluppi un <q>concept</q> attorno all'idea che nel sito ci sono le statistiche e <q>posso far combattere</q>, non vibecoding.</div><div class="did"><span class="tag">concept</span>Il sito come "Cartellone": incontri mai successi tra fighter di ogni epoca.</div></div></li>
+  <li><div><div class="req">Statistiche come <q>forme</q> di dimensione e colore diversi che, quando combattono, sembrano nature diverse che si scontrano.</div><div class="did"><span class="tag">arena</span>Fuoco (KO), Presa (sottomissioni), Distanza (punti): cerchi con l'area vera, che si scontrano elemento contro elemento.</div></div></li>
+  <li><div><div class="req">Le mie bozze: la carriera come una montagna, con altezza, picco, serie di vittorie e top win.</div><div class="did"><span class="tag">scheda</span>Diventata la "Montagna" della scheda fighter.</div></div></li>
+  <li><div><div class="req">Molto più figa, vicina alle immagini di Pinterest; i siti che ti ho mandato vanno bene come base per font e colori.</div><div class="did"><span class="tag">stile</span>Nero, rosso, bianco; Anton, serif corsivo, mono; grana; lastra rossa "tale of the tape".</div></div></li>
+  <li><div><div class="req">Servono i fighter in PNG, di qualità, non brutti; niente upscaling, foto HD se ne trovano.</div><div class="did"><span class="tag">foto</span>Foto da Pinterest e Wikimedia, scontornate; poi rifatte su GPU con BiRefNet.</div></div></li>
+  <li><div><div class="req">Il mio amico entra nel sito: si chiama <q>Harrionomane</q>, stats pessime, altezza bassa, italiano.</div><div class="did"><span class="tag">meme</span>1-23, 158 cm, "Il Sacco", con biografia in stile Nonciclopedia.</div></div></li>
+  <li><div><div class="req">Far combattere tutti, vedere ogni singolo fighter, bandiere, icone fatte a matita.</div><div class="did"><span class="tag">pagine</span>Una scheda per ogni fighter, bandiere vere, icone disegnate a mano.</div></div></li>
+  <li><div><div class="req">Le forme devono interagire quando combattono; Tyson girato dalla parte giusta; attenzione ai testi coperti.</div><div class="did"><span class="tag">arena</span>Ogni foto ha il suo verso e guarda sempre l'avversario.</div></div></li>
+  <li><div><div class="req">Foto di vittorie, sconfitte e pareggi; ci deve essere un <q>verdetto</q> con un po' di caso.</div><div class="did"><span class="tag">verdetto</span>Chi vince, come, in che round; le foto dell'esito cambiano nell'arena.</div></div></li>
+  <li><div><div class="req">Grafico per ogni fighter con picco, serie e attuale; mappa di nascita con lo stato evidenziato.</div><div class="did"><span class="tag">dati</span>Mappe reali (Natural Earth), stati USA, punto sulla città.</div></div></li>
+  <li><div><div class="req">Navigazione fluida, precalcola le cose; controlla le foto (la locandina Paul–Tyson non è una sconfitta).</div><div class="did"><span class="tag">prestazioni</span>Foto da 12 MB a 1,5 MB, sfocature precalcolate, font locali, funziona offline.</div></div></li>
+  <li><div><div class="req">Prendi i dati veri dal database senza scaricare tutto; rendi più vario il verdetto.</div><div class="did"><span class="tag">dati veri</span>Solo i file dei 7 fighter: 290 match reali, avversari in comune veri.</div></div></li>
+  <li><div><div class="req">Un agente pensi a un grafico unico che leghi più dati, e a come far "parlare" i numeri (1,60 m vuol dire basso).</div><div class="did"><span class="tag">ricerca</span>La "Montagna annotata": un solo grafico per la carriera, con zoom e confronto.</div></div></li>
+  <li><div><div class="req">Usa Nonciclopedia, anche per Tyson e per il wrestling.</div><div class="did"><span class="tag">umorismo</span>Box "Secondo Nonciclopedia" in ogni scheda.</div></div></li>
+  <li><div><div class="req">Animazione: prima la fisica, poi liquido e inchiostro; scritte grandi senza sfondo; chi vince più grande.</div><div class="did"><span class="tag">animazione</span>Urto, schiacciamento, fusione, schizzi; timbri VINCITORE / SCONFITTO.</div></div></li>
+  <li><div><div class="req">Grafiche apposta per ogni esito, con due spessori, medio e grosso.</div><div class="did"><span class="tag">grafica</span>KO, sottomissione, cartellini dei giudici, pareggio, squalifica, no contest.</div></div></li>
+  <li><div><div class="req">Il confronto va migliorato ancora; non devono esserci testi sovrapposti.</div><div class="did"><span class="tag">confronto</span>Duello con barre a specchio, due montagne, facce, controllo di tutte le sovrapposizioni.</div></div></li>
+  <li><div><div class="req">Aggiungi le funzioni che mancano rispetto al progetto originale.</div><div class="did"><span class="tag">funzioni</span>Classifiche, Eventi con calendario, spoiler, video, oggi nella storia, motivazioni del rating.</div></div></li>
+  <li><div><div class="req">Ritagli su Kaggle, almeno due per fighter; texture e vetro; anteprime visibili.</div><div class="did"><span class="tag">rifinitura</span>18 ritagli su GPU, texture serigrafiche, anteprime inviate a ogni versione.</div></div></li>
+</ol>
+
+<h2>Il risultato <em>com'è adesso</em></h2>
+<div class="grid">
+  <figure><img src="img/percorso/r_cartellone.jpg" alt="Il Cartellone"><figcaption>Il Cartellone</figcaption></figure>
+  <figure><img src="img/percorso/r_arena.jpg" alt="L'arena"><figcaption>L'arena: lo scontro</figcaption></figure>
+  <figure><img src="img/percorso/r_esiti.jpg" alt="Grafiche degli esiti"><figcaption>Una grafica per ogni esito</figcaption></figure>
+  <figure><img src="img/percorso/r_scheda.jpg" alt="Scheda fighter"><figcaption>La scheda fighter</figcaption></figure>
+  <figure><img src="img/percorso/r_montagna.jpg" alt="Montagna annotata"><figcaption>La montagna annotata</figcaption></figure>
+  <figure><img src="img/percorso/r_confronto.jpg" alt="Confronto a duello"><figcaption>Il confronto a duello</figcaption></figure>
+  <figure><img src="img/percorso/r_classifiche.jpg" alt="Classifiche"><figcaption>Classifiche</figcaption></figure>
+</div>
+<a class="cta" href="index.html">Entra nel sito →</a>
+</div>
+</body>
+</html>

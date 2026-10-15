@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fight Lighthouse — Tutti i fighter</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{--black:#0B0B0B;--white:#F2F0EB;--grey:#8C8A86;--line:#2a2a2a;--red:#E10600;--red-dk:#B00500;--red-ink:#120000}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--black);color:var(--white)}
+body{font:500 15px/1.4 Archivo,sans-serif;overflow-x:hidden;animation:pagein .35s ease-out}
+@keyframes pagein{from{opacity:0}to{opacity:1}}
+a{color:inherit}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.32;background:url(img/grain.png)}
+.pad{padding-inline:clamp(16px,4vw,56px)}
+.ic{width:clamp(22px,1.6em,34px);height:clamp(22px,1.6em,34px);vertical-align:-.45em;flex:none}
+nav{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;padding-bottom:18px;font:600 11px/1 "IBM Plex Mono";letter-spacing:.2em;text-transform:uppercase;color:var(--grey)}
+nav b{color:var(--white)} nav .links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px} nav .links a{text-decoration:none;padding:12px 0}
+nav .links a:hover{color:var(--white)}
+nav .links a[aria-current]{color:var(--white);border-bottom:2px solid var(--red)}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--white);outline-offset:2px}
+.spoilerbtn{display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--grey);border:1.5px solid #333;font:600 10px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;padding:0 12px;min-height:40px;cursor:pointer}
+h1{margin:20px 0 0;font:400 clamp(60px,10vw,150px)/.85 Anton;text-transform:uppercase}
+h1 em{display:block;font:italic 400 .3em/1.2 "Instrument Serif";color:var(--red);text-transform:none;margin-top:10px}
+.sec{padding-top:40px}
+
+/* filtri */
+.ctrl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 24px;align-items:end;border-bottom:1px solid #333;padding-bottom:16px}
+.find{display:flex;border:2px solid var(--white);max-width:640px}
+.find input{flex:1;min-width:0;background:transparent;border:0;color:var(--white);font:400 24px Anton;letter-spacing:.02em;padding:10px 14px;text-transform:uppercase}
+.find input::placeholder{color:#555}
+.k{display:block;font:600 10px "IBM Plex Mono";letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-bottom:6px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--grey);border:1.5px solid #333;font:600 10px "IBM Plex Mono";letter-spacing:.12em;text-transform:uppercase;padding:0 14px;min-height:42px;cursor:pointer}
+.tabs button b{font:italic 400 17px "Instrument Serif";letter-spacing:0;color:var(--white)}
+.tabs button[aria-pressed="true"]{color:var(--white);border-color:var(--red)}
+select{font:600 12px "IBM Plex Mono";background:#141414;color:var(--white);border:1.5px solid #333;min-height:42px;padding:0 10px;max-width:100%}
+.row2{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:end;padding:16px 0}
+.az{display:flex;flex-wrap:wrap;gap:2px;padding:6px 0 14px;border-bottom:1px solid #333}
+.az button{background:transparent;border:0;color:var(--white);font:400 22px/1 AFont1,Anton;min-width:34px;min-height:40px;cursor:pointer}
+.az button:disabled{color:#333;cursor:default}
+.az button[aria-pressed="true"]{color:var(--red)}
+.count{font:600 11px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.count b{font:italic 400 30px "Instrument Serif";letter-spacing:0;color:var(--white);margin-right:6px}
+
+/* lista */
+.list{border-top:2px solid var(--white);margin-top:4px}
+.row{display:grid;grid-template-columns:56px 52px minmax(0,1fr) 110px 70px 90px 56px;gap:14px;align-items:center;border-bottom:1px solid #222;min-height:68px}
+.row:hover{background:#141414}
+.row .n{font:400 22px Anton;color:#555;text-align:center}
+.av{width:46px;height:46px;border-radius:50%;background:#1b1b1b;display:grid;place-items:center;overflow:hidden;font:400 18px Anton;color:var(--grey);border:1.5px solid #333}
+.av img{width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(1)}
+.av.ours{border-color:var(--red)}
+.row .nm{text-decoration:none;font:400 24px/1.05 Anton;text-transform:uppercase;padding:10px 0;overflow:hidden}
+.row .nm span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .nm small{display:block;margin-top:4px;font:600 10px "IBM Plex Mono";color:var(--grey);letter-spacing:.1em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .nm small em{font-style:normal;color:var(--red)}
+.row .rec,.row .mt{font:400 13px "IBM Plex Mono";color:var(--grey);text-align:right}
+.row .v{font:italic 400 30px "Instrument Serif";text-align:right}
+.row .vs{display:grid;place-items:center;min-height:44px;text-decoration:none;font:400 16px Anton;border:1.5px solid #333}
+.row .vs:hover{border-color:var(--red);color:var(--red)}
+.head{min-height:0;font:600 10px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;color:var(--grey);padding:10px 0}
+.head:hover{background:none}
+.head span:nth-child(n+4){text-align:right}
+.none{padding:36px 0;font:400 26px Anton;text-transform:uppercase;color:var(--grey)}
+.pager{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:22px 0 80px}
+.pager button{background:transparent;color:var(--white);border:1.5px solid var(--white);font:400 18px Anton;text-transform:uppercase;padding:0 18px;min-height:46px;cursor:pointer}
+.pager button:disabled{opacity:.3;cursor:default}
+.pager span{font:600 11px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+@media (max-width:760px){
+  .ctrl{grid-template-columns:1fr}
+  .row{grid-template-columns:34px 40px minmax(0,1fr) 62px 44px;gap:8px}
+  .row .rec,.row .mt{display:none}
+  .row .n{font-size:16px} .av{width:38px;height:38px;font-size:15px}
+  .row .nm{font-size:19px} .row .v{font-size:24px}
+  .head span:nth-child(4),.head span:nth-child(5){display:none}
+}
+</style>
+<link rel="stylesheet" href="fx.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<nav class="pad" aria-label="Principale">
+  <a href="index.html" style="text-decoration:none"><b>Fight Lighthouse</b>®</a>
+  <span class="links"><a href="index.html">Home</a><a href="elementi.html">Cartellone</a><a href="index.html#roster">Roster</a><a href="classifiche.html">Classifiche</a><a href="eventi.html">Eventi</a><button type="button" class="spoilerbtn" onclick="spoilerToggle()" aria-pressed="false">Spoiler: visibili</button></span>
+</nav>
+<header class="pad"><h1>Tutti i fighter<em id="sub"></em></h1></header>
+
+<section class="sec pad">
+  <div class="ctrl">
+    <div><label class="k" for="tq">Cerca per nome</label><div class="find"><input id="tq" type="search" placeholder="Holyfield, Canelo…" autocomplete="off"></div></div>
+    <p class="count" id="count" aria-live="polite"></p>
+  </div>
+  <div class="row2">
+    <div><span class="k">Sport</span><div class="tabs" id="sport" role="group" aria-label="Sport"></div></div>
+    <div><label class="k" for="paese">Paese</label><select id="paese"></select></div>
+    <div><span class="k">Ordina per</span><div class="tabs" id="sort" role="group" aria-label="Ordina per"></div></div>
+  </div>
+  <div class="az" id="az" role="group" aria-label="Iniziale del cognome"></div>
+  <div class="list" id="list"></div>
+  <div class="pager"><button type="button" id="prev">← Prima</button><span id="pg"></span><button type="button" id="next">Dopo →</button></div>
+</section>
+
+<script src="records.js"></script>
+<script src="data.js"></script>
+<script src="ratings.js"></script>
+<script src="yt.js"></script>
+<script src="extra.js"></script>
+<script src="db/index.js"></script>
+<script src="db.js"></script>
+<script>
+// ponytail: paginazione a 50 righe; nel DOM c'è solo la pagina aperta
+const PER = 50, ROWS = fdbRows();
+ROWS.forEach(r => { const n = fdbNorm(r.name); r.key = n.split(' ').pop() + ' ' + n; });   // A–Z per cognome
+const st = {q: '', sport: '', paese: '', sort: 'rp', page: 0, letter: ''};
+const SORTS = [['rp', 'Rating'], ['name', 'Nome A–Z'], ['n', 'Match']];
+const count = (xs, k) => xs.reduce((m, r) => (m[r[k]] = (m[r[k]] || 0) + 1, m), {});
+const bySport = count(ROWS, 'sport'), byPaese = count(ROWS.filter(r => r.country), 'country');
+$('sub').textContent = `${ROWS.length.toLocaleString('it-IT')} carriere, ognuna col suo rating`;
+$('sport').innerHTML = [['', 'Tutti', ROWS.length], ...Object.entries(bySport).sort((a, b) => b[1] - a[1]).map(([k, n]) => [k, k, n])]
+  .map(([k, l, n]) => `<button type="button" data-k="${esc(k)}" aria-pressed="${k === ''}">${esc(l)}<b>${n.toLocaleString('it-IT')}</b></button>`).join('');
+$('paese').innerHTML = `<option value="">Tutti i paesi</option>` + Object.entries(byPaese).sort((a, b) => b[1] - a[1])
+  .map(([k, n]) => `<option value="${esc(k)}">${esc(k)} · ${n}</option>`).join('');
+$('sort').innerHTML = SORTS.map(([k, l]) => `<button type="button" data-k="${k}" aria-pressed="${k === st.sort}">${l}</button>`).join('');
+
+function filtered() {
+  const t = fdbNorm(st.q).split(' ').filter(Boolean);
+  const L = ROWS.filter(r => (!st.sport || r.sport === st.sport) && (!st.paese || r.country === st.paese) && t.every(x => r.hay.includes(x)));
+  const cmp = {rp: (a, b) => b.rp - a.rp, name: (a, b) => a.key.localeCompare(b.key), n: (a, b) => b.n - a.n || b.rp - a.rp}[st.sort];
+  return L.sort((a, b) => (st.sort === 'rp' && !t.length ? b.cur - a.cur : 0) || cmp(a, b));
+}
+const avatar = r => (r.cur && byId(r.id) ? `<span class="av ours"><img src="img/${r.id}.webp" alt=""></span>`
+  : `<span class="av" aria-hidden="true">${esc(r.name.split(' ').filter(Boolean).map(w => w[0]).slice(0, 2).join('').toUpperCase())}</span>`);
+function render() {
+  const L = filtered(), pages = Math.max(1, Math.ceil(L.length / PER));
+  if (st.letter && st.sort === 'name') { const i = L.findIndex(r => r.key[0] === st.letter); if (i > -1) st.page = Math.floor(i / PER); st.letter = ''; }
+  st.page = Math.min(st.page, pages - 1);
+  const P = L.slice(st.page * PER, st.page * PER + PER);
+  $('count').innerHTML = `<b>${L.length.toLocaleString('it-IT')}</b>fighter`;
+  $('list').innerHTML = P.length ? `<div class="row head" aria-hidden="true"><span>#</span><span></span><span>Nome</span><span>Record</span><span>Match</span><span>Rating</span><span></span></div>` + P.map((r, i) => `<div class="row">
+      <span class="n">${st.page * PER + i + 1}</span>${avatar(r)}
+      <a class="nm" href="carriera.html?f=${r.id}"><span>${esc(r.name)}</span><small>${[r.sport, r.country].filter(Boolean).map(esc).join(' · ')}${r.cur ? ' · <em>Roster</em>' : ''}</small></a>
+      <span class="rec">${esc(r.rec)}</span><span class="mt">${r.n}</span><span class="v">${r.rp}</span>
+      <a class="vs" href="elementi.html?f1=${r.id}" aria-label="${esc(r.name)} sul cartellone" title="Sul cartellone">VS</a></div>`).join('')
+    : '<p class="none">Nessun fighter con questi filtri.</p>';
+  $('pg').textContent = `Pagina ${st.page + 1} di ${pages}`;
+  $('prev').disabled = st.page === 0; $('next').disabled = st.page >= pages - 1;
+  const have = new Set(L.map(r => r.key[0]));
+  $('az').innerHTML = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(c => `<button type="button" data-c="${c.toLowerCase()}" ${have.has(c.toLowerCase()) ? '' : 'disabled'} aria-label="Cognomi con ${c}">${c}</button>`).join('');
+}
+const press = (box, k) => box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.k === k)));
+$('tq').addEventListener('input', e => { st.q = e.target.value; st.page = 0; render(); });
+$('paese').onchange = e => { st.paese = e.target.value; st.page = 0; render(); };
+$('sport').onclick = e => { const b = e.target.closest('button'); if (!b) return; st.sport = b.dataset.k; st.page = 0; press($('sport'), st.sport); render(); };
+$('sort').onclick = e => { const b = e.target.closest('button'); if (!b) return; st.sort = b.dataset.k; st.page = 0; press($('sort'), st.sort); render(); };
+$('az').onclick = e => { const b = e.target.closest('button'); if (!b) return; st.sort = 'name'; st.letter = b.dataset.c; press($('sort'), 'name'); render(); $('list').scrollIntoView({block: 'start'}); };
+const turn = d => { st.page += d; render(); $('list').scrollIntoView({block: 'start'}); };
+$('prev').onclick = () => turn(-1); $('next').onclick = () => turn(1);
+render();
+</script>
+</body>
+</html>

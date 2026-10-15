@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fight Lighthouse — Classifiche</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{--black:#0B0B0B;--white:#F2F0EB;--grey:#8C8A86;--line:#2a2a2a;--red:#E10600;--red-dk:#B00500;--red-ink:#120000}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--black);color:var(--white)}
+body{font:500 15px/1.4 Archivo,sans-serif;overflow-x:hidden;animation:pagein .35s ease-out}
+@keyframes pagein{from{opacity:0}to{opacity:1}}
+a{color:inherit}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.32;background:url(img/grain.png)}
+.pad{padding-inline:clamp(16px,4vw,56px)}
+.ic{width:clamp(22px,1.6em,34px);height:clamp(22px,1.6em,34px);vertical-align:-.45em;flex:none}
+.flag{height:.72em;width:auto;margin-left:.3em;vertical-align:.04em}
+nav{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;padding-bottom:18px;font:600 11px/1 "IBM Plex Mono";letter-spacing:.2em;text-transform:uppercase;color:var(--grey)}
+nav b{color:var(--white)} nav .links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px} nav .links a{text-decoration:none;padding:12px 0}
+nav .links a[aria-current]{color:var(--white);border-bottom:2px solid var(--red)}
+.spoilerbtn{display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--grey);border:1.5px solid #333;font:600 10px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;padding:0 12px;min-height:40px;cursor:pointer}
+.spoiler .sp:not(.shown){filter:blur(7px);cursor:pointer}
+h1{margin:20px 0 0;font:400 clamp(60px,10vw,150px)/.85 Anton;text-transform:uppercase}
+h1 em{font:italic 400 .32em "Instrument Serif";color:var(--red);text-transform:none;margin-left:12px}
+.sec{padding-top:56px}
+.sechead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;border-bottom:1px solid #333;padding-bottom:14px}
+.sechead h3{margin:0;font:400 clamp(40px,5vw,76px)/.85 Anton;text-transform:uppercase}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{background:transparent;color:var(--grey);border:1.5px solid #333;font:600 10px "IBM Plex Mono";letter-spacing:.12em;text-transform:uppercase;padding:0 14px;min-height:42px;cursor:pointer}
+.tabs button[aria-pressed="true"]{color:var(--white);border-color:var(--red)}
+.podium{display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:end;gap:12px;margin-top:20px}
+.step{text-decoration:none;display:flex;flex-direction:column;align-items:center}
+.step .ph{height:300px;width:100%;position:relative}
+.step .ph img{position:absolute;bottom:0;left:50%;height:100%;transform:translateX(-50%);filter:grayscale(1) contrast(1.2);transition:filter .4s}
+.step:hover .ph img{filter:none}
+.step .base{width:100%;text-align:center;padding:14px 8px;background:#1b1b1b}
+.step.p1 .base{background:var(--red);color:var(--red-ink);padding-top:34px} .step.p1 .ph{height:360px}
+.step .pos{font:400 54px/1 Anton} .step .nm{font:400 24px Anton;text-transform:uppercase} .step .v{font:italic 400 28px "Instrument Serif"}
+.list{margin-top:18px;border-top:2px solid var(--white)}
+.row{display:grid;grid-template-columns:60px 56px 1fr 120px 120px;gap:14px;align-items:center;border-bottom:1px solid #222;padding:10px 0;text-decoration:none}
+.row:hover{background:#141414}
+.row .n{font:400 30px Anton;color:var(--grey);text-align:center}
+.row img.av{width:48px;height:48px;object-fit:cover;object-position:top;border-radius:50%;background:#1b1b1b;filter:grayscale(1)}
+.row .nm{font:400 26px Anton;text-transform:uppercase} .row .nm small{display:block;font:600 10px "IBM Plex Mono";color:var(--grey);letter-spacing:.1em}
+.row .v{font:italic 400 30px "Instrument Serif";text-align:right} .row .rec{font:400 13px "IBM Plex Mono";color:var(--grey);text-align:right}
+.fights .row{grid-template-columns:60px 1fr 1fr 110px 60px}
+.fights .row .vs{font:400 22px Anton;text-transform:uppercase}
+.fights .row .vs i{font:italic 400 16px "Instrument Serif";color:var(--red);text-transform:none;margin:0 6px}
+.fights .row .m{font:400 13px "IBM Plex Mono";color:var(--grey)}
+.yt img{width:22px;filter:brightness(0) saturate(100%) invert(14%) sepia(99%) saturate(7470%) hue-rotate(0deg) brightness(104%) contrast(118%)}
+@media (max-width:760px){.podium{grid-template-columns:1fr 1fr 1fr}.step .ph{height:170px}.step.p1 .ph{height:210px}.row{grid-template-columns:40px 44px 1fr 80px}.row .rec{display:none}.fights .row{grid-template-columns:36px 1fr 70px}.fights .row .m,.fights .row .yt{display:none}}
+</style>
+<link rel="stylesheet" href="fx.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<nav class="pad" aria-label="Principale">
+  <a href="index.html" style="text-decoration:none"><b>Fight Lighthouse</b>®</a>
+  <span class="links"><a href="index.html">Home</a><a href="elementi.html">Cartellone</a><a href="index.html#roster">Roster</a><a href="classifiche.html" aria-current="page">Classifiche</a><a href="eventi.html">Eventi</a><button type="button" class="spoilerbtn" onclick="spoilerToggle()" aria-pressed="false">Spoiler: visibili</button></span>
+</nav>
+<header class="pad"><h1>Classifiche<em data-var="rank.em">chi sta in cima</em></h1></header>
+<section class="sec pad">
+  <div class="sechead"><h3>Ranking</h3><div class="tabs" id="metric" role="group" aria-label="Ordina per"></div><div class="tabs" id="sport" role="group" aria-label="Sport"></div></div>
+  <div class="podium" id="podium"></div>
+  <div class="list" id="list"></div>
+</section>
+<section class="sec pad">
+  <div class="sechead"><h3>Ranking per anno</h3><label class="tabs" style="align-items:center;gap:10px;font:600 10px 'IBM Plex Mono';letter-spacing:.12em;text-transform:uppercase;color:var(--grey)">Anno <select id="year" style="font:600 13px 'IBM Plex Mono';background:#141414;color:var(--white);border:1.5px solid #333;min-height:42px;padding:0 10px"></select></label></div>
+  <p id="yearTop" style="margin:18px 0 0;font:400 clamp(34px,5vw,64px)/1 Anton;text-transform:uppercase"></p>
+  <div class="list" id="yearList"></div>
+</section>
+<section class="sec pad fights">
+  <div class="sechead"><h3>I match più forti</h3></div>
+  <div class="list" id="fights"></div>
+</section>
+<div style="height:80px"></div>
+<script src="records.js"></script>
+<script src="data.js"></script>
+<script src="ratings.js"></script>
+<script src="yt.js"></script>
+<script src="extra.js"></script>
+<script src="db/index.js"></script>
+<script src="db.js"></script>
+<script>
+const peak = f => Math.max(...(f.history || [{rp: 0}]).map(h => h.rp));
+const cur = f => (f.history || [{rp: 0}]).slice(-1)[0].rp;
+const METRICS = [{k: 'peak', label: 'Picco', v: peak}, {k: 'cur', label: 'Attuale', v: cur}, {k: 'wins', label: 'Vittorie', v: wins}];
+const SPORTS = [{k: 'all', label: 'Tutti'}, {k: 'Boxe', label: 'Boxe'}, {k: 'MMA', label: 'MMA'}];
+let metric = 'peak', sport = 'all';
+const tabs = (id, items, sel, set) => {
+  $(id).innerHTML = items.map(m => `<button type="button" aria-pressed="${m.k === sel}" data-k="${m.k}">${m.label}</button>`).join('');
+  $(id).onclick = e => { const b = e.target.closest('button'); if (b) { set(b.dataset.k); render(); } };
+};
+function render() {
+  tabs('metric', METRICS, metric, k => { metric = k; }); tabs('sport', SPORTS, sport, k => { sport = k; });
+  const m = METRICS.find(x => x.k === metric);
+  const L = FIGHTERS.filter(f => sport === 'all' || f.sport === sport).map(f => ({f, v: m.v(f)})).sort((a, b) => b.v - a.v);
+  const step = (x, pos) => (x ? `<a class="step p${pos}" href="carriera.html?f=${x.f.id}"><div class="ph"><img src="img/${x.f.id}.webp" alt=""></div>
+      <div class="base"><div class="pos">${pos}</div><div class="nm">${esc(x.f.name)}${flagsHtml(x.f)}</div><div class="v">${x.v}${metric === 'wins' ? ' W' : ''}</div></div></a>` : '<div></div>');
+  $('podium').innerHTML = step(L[1], 2) + step(L[0], 1) + step(L[2], 3);
+  $('list').innerHTML = L.map((x, i) => `<a class="row" href="carriera.html?f=${x.f.id}"><span class="n">${i + 1}</span><img class="av" src="img/${x.f.id}.webp" alt="">
+      <span class="nm">${esc(x.f.name)}${flagsHtml(x.f)}<small>${esc(x.f.sport)}</small></span><span class="rec">${wins(x.f)}–${x.f.loss}</span><span class="v">${x.v}</span></a>`).join('');
+}
+render();
+// ranking per anno: rating OpenSkill a fine anno, solo chi in quell'anno era in carriera (tra il primo e l'ultimo match)
+const atYear = (f, y) => { const H = f.history || [], hs = H.filter(h => h.year <= y); return hs.length && H[H.length - 1].year >= y ? hs[hs.length - 1].rp : null; };
+const YEARS = FIGHTERS.flatMap(f => (f.history || []).map(h => h.year)).filter(Boolean);
+for (let y = Math.max(...YEARS); y >= Math.min(...YEARS); y--) $('year').insertAdjacentHTML('beforeend', `<option>${y}</option>`);
+function renderYear() {
+  const y = +$('year').value, L = FIGHTERS.map(f => ({f, v: atYear(f, y), act: (f.history || []).some(h => h.year === y)})).filter(x => x.v != null).sort((a, b) => b.v - a.v);
+  $('yearTop').innerHTML = L.length ? `${esc(L[0].f.name)} <span style="font:italic 400 .6em 'Instrument Serif';color:var(--red);text-transform:none">${L[0].v} a fine ${y}</span>` : '';
+  $('yearList').innerHTML = L.map((x, i) => `<a class="row" href="carriera.html?f=${x.f.id}"><span class="n">${i + 1}</span><img class="av" src="img/${x.f.id}.webp" alt="">
+    <span class="nm">${esc(x.f.name)}${flagsHtml(x.f)}<small>${esc(x.f.sport)}${x.act ? ' · ha combattuto' : ' · fermo quest’anno'}</small></span><span class="rec">${(x.f.history || []).filter(h => h.year <= y && h.res === 'W').length}–${(x.f.history || []).filter(h => h.year <= y && h.res === 'L').length}</span><span class="yv" style="font:italic 400 30px 'Instrument Serif';text-align:right">${x.v}</span></a>`).join('');
+}
+$('year').onchange = renderYear; renderYear();
+// i match più forti: le vittorie al rating più alto
+const best = FIGHTERS.flatMap(f => (f.history || []).filter(h => h.res === 'W').map(h => ({f, h}))).sort((a, b) => b.h.rp - a.h.rp).slice(0, 12);
+$('fights').innerHTML = best.map(({f, h}, i) => `<div class="row"><span class="n">${i + 1}</span>
+  <span class="vs"><a href="carriera.html?f=${f.id}" style="text-decoration:none">${esc(surname(f))}</a><i>contro</i>${esc(h.opp)}</span>
+  <span class="m sp"><span style="color:#F2F0EB">${icon('m_' + methodKind(h.method))}</span> ${esc(h.method)} · ${esc(h.date)}</span><span class="v">${h.rp}</span>
+  <a class="yt" href="${videoUrlReal(f, h)}" target="_blank" rel="noopener noreferrer" aria-label="Video">${ytThumb(f, h) || '<img src="img/youtube.svg" alt="">'}</a></div>`).join('');
+</script>
+</body>
+</html>

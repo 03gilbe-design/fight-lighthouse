@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="640" viewBox="0 0 300 640">
+  <!-- Silhouette per i fighter senza foto: in guardia, di fronte. Contorno grosso (dilatazione) + dettagli fini, tratto a matita. -->
+  <defs>
+    <filter id="o" x="-10%" y="-5%" width="120%" height="110%">
+      <feMorphology in="SourceAlpha" operator="dilate" radius="7" result="d"/>
+      <feFlood flood-color="#F2F0EB"/><feComposite in2="d" operator="in" result="line"/>
+      <feMerge result="m"><feMergeNode in="line"/><feMergeNode in="SourceGraphic"/></feMerge>
+      <feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="3" seed="4" result="n"/>
+      <feDisplacementMap in="m" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <g filter="url(#o)">
+    <g fill="none" stroke="#2b2b2b" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M150 112V146" stroke-width="30"/>
+      <path d="M104 170H196" stroke-width="42"/>
+      <path d="M150 168V292" stroke-width="96"/>
+      <path d="M124 330H176" stroke-width="66"/>
+      <path d="M100 172L76 252L116 140" stroke-width="31"/>
+      <path d="M200 172L224 252L184 140" stroke-width="31"/>
+      <path d="M128 352L110 472L100 600L72 610" stroke-width="36"/>
+      <path d="M172 352L190 472L200 600L228 610" stroke-width="36"/>
+    </g>
+    <g fill="#2b2b2b"><ellipse cx="150" cy="76" rx="35" ry="42"/><circle cx="118" cy="122" r="27"/><circle cx="182" cy="122" r="27"/></g>
+  </g>
+  <g fill="none" stroke="#F2F0EB" stroke-width="3" stroke-linecap="round" opacity=".85">
+    <path d="M100 312Q150 324 200 312"/><path d="M104 140Q118 150 132 140M168 140Q182 150 196 140"/><path d="M150 334V372"/>
+  </g>
+</svg>

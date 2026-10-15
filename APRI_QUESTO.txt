@@ -1,0 +1,2 @@
+Apri index.html con doppio clic (Chrome/Edge/Firefox).
+Serve internet solo per le miniature e i video YouTube.

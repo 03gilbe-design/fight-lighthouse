@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fight Lighthouse — Eventi</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{--black:#0B0B0B;--white:#F2F0EB;--grey:#8C8A86;--line:#2a2a2a;--red:#E10600;--red-dk:#B00500;--red-ink:#120000}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--black);color:var(--white)}
+body{font:500 15px/1.4 Archivo,sans-serif;overflow-x:hidden;animation:pagein .35s ease-out}
+@keyframes pagein{from{opacity:0}to{opacity:1}}
+a{color:inherit}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.32;background:url(img/grain.png)}
+.pad{padding-inline:clamp(16px,4vw,56px)}
+.ic{width:1.15em;height:1.15em;vertical-align:-.2em;flex:none}
+nav{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding-top:18px;padding-bottom:18px;font:600 11px/1 "IBM Plex Mono";letter-spacing:.2em;text-transform:uppercase;color:var(--grey)}
+nav b{color:var(--white)} nav .links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px} nav .links a{text-decoration:none;padding:12px 0}
+nav .links a:hover{color:var(--white)}
+nav .links a[aria-current]{color:var(--white);border-bottom:2px solid var(--red)}
+a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--white);outline-offset:2px}
+.spoilerbtn{background:transparent;color:var(--grey);border:1.5px solid #333;font:600 10px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;padding:0 12px;min-height:40px;cursor:pointer}
+.spoilerbtn[aria-pressed="true"]{color:var(--white);border-color:var(--red)}
+.spoiler .sp:not(.shown){filter:blur(7px);cursor:pointer;user-select:none}
+h1{margin:20px 0 0;font:400 clamp(60px,10vw,150px)/.85 Anton;text-transform:uppercase}
+h1 em{font:italic 400 .32em "Instrument Serif";color:var(--red);text-transform:none;margin-left:12px}
+.sec{padding-top:56px}
+.sechead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;border-bottom:1px solid #333;padding-bottom:14px}
+.sechead h3{margin:0;font:400 clamp(40px,5vw,76px)/.85 Anton;text-transform:uppercase}
+.sechead h3 em{font:italic 400 .62em "Instrument Serif";text-transform:none;color:var(--red);margin-left:10px}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters label{position:absolute;left:-9999px}
+.filters select{font:600 11px "IBM Plex Mono";letter-spacing:.08em;text-transform:uppercase;background:#141414;color:var(--white);border:1.5px solid #333;padding:0 12px;min-height:44px;max-width:100%}
+.events{margin-top:18px;border-top:2px solid var(--white)}
+.ev{display:grid;grid-template-columns:110px 1fr 220px;gap:20px;align-items:start;border-bottom:1px solid #222;padding:22px 0}
+.ev .when .d{display:block;font:italic 400 40px/1 "Instrument Serif";color:var(--red)}
+.ev .when .y{display:block;font:600 11px "IBM Plex Mono";letter-spacing:.2em;color:var(--grey);margin-top:6px}
+.ev h4{margin:0;font:400 clamp(28px,3vw,40px)/.95 Anton;text-transform:uppercase}
+.ev .pl{margin-top:8px;font:600 10px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.ev ul{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:6px}
+.ev li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.ev .w{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--red);color:#000;font:400 14px Anton}
+.ev .w.L{background:transparent;border:2px solid var(--grey);color:var(--grey)}
+.ev .w.D,.ev .w.NC{background:transparent;border:2px dashed var(--grey);color:var(--grey);font-size:11px}
+.ev .nm{font:400 22px Anton;text-transform:uppercase;text-decoration:none}
+.ev a.nm:hover{color:var(--red)}
+.ev li i{font:italic 400 16px "Instrument Serif";color:var(--red)}
+.ev .met{font:400 13px "IBM Plex Mono";color:var(--grey)}
+.ev a.yt{display:inline-grid;place-items:center;width:44px;height:36px}
+.ev a.yt img{width:22px;filter:brightness(0) saturate(100%) invert(14%) sepia(99%) saturate(7470%) hue-rotate(0deg) brightness(104%) contrast(118%)}
+.ev .acts{display:grid;gap:6px}
+/* miniatura scontornata grande: le persone stanno davanti a un pezzo del titolo, niente fondo */
+.ev{position:relative}
+.ev h4,.ev .pl,.ev ul{position:relative;z-index:1}
+.ev h4{z-index:0}
+.ev li:first-child a.yt:has(.ytth.cut){position:absolute;right:250px;bottom:-1px;width:auto;height:auto;z-index:2;pointer-events:auto}
+.ev li:first-child .ytth.cut{width:330px;height:186px;border:0;background:none;overflow:visible}
+.ev li:first-child .ytth.cut img.ytimg{filter:grayscale(1) contrast(1.15) drop-shadow(0 10px 18px rgba(0,0,0,.6));transition:filter .4s,transform .4s}
+.ev li:first-child a.yt:hover .ytth.cut img.ytimg{filter:none drop-shadow(0 10px 18px rgba(0,0,0,.6));transform:translateY(-4px) !important}
+.ev li:first-child .ytth.cut::after{left:auto;right:8px;top:auto;bottom:10px;transform:none}
+.ev:has(li:first-child .ytth.cut){min-height:200px}
+@media (max-width:900px){.ev li:first-child a.yt:has(.ytth.cut){position:static}.ev li:first-child .ytth.cut{width:220px;height:124px}.ev:has(li:first-child .ytth.cut){min-height:0}}
+.ev .acts button,.ev .acts a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;font:600 10px "IBM Plex Mono";letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer}
+.ev .acts button{background:var(--red);color:var(--white);border:0}
+.ev .acts button:hover{background:var(--white);color:var(--black)}
+.ev .acts a{border:1.5px solid #333;color:var(--grey)}
+.ev .acts a:hover{color:var(--white);border-color:var(--white)}
+.count{font:italic 400 30px "Instrument Serif";color:var(--grey)}
+.none{font:600 11px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;color:var(--grey);padding:30px 0}
+@media (max-width:760px){.ev{grid-template-columns:1fr;gap:12px}.ev .when .d{display:inline;font-size:30px;margin-right:10px}.ev .when .y{display:inline}}
+</style>
+<link rel="stylesheet" href="fx.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<nav class="pad" aria-label="Principale">
+  <a href="index.html" style="text-decoration:none"><b>Fight Lighthouse</b>®</a>
+  <span class="links"><a href="index.html">Home</a><a href="elementi.html">Cartellone</a><a href="index.html#roster">Roster</a><a href="classifiche.html">Classifiche</a><a href="eventi.html" aria-current="page">Eventi</a><button type="button" class="spoilerbtn" onclick="spoilerToggle()" aria-pressed="false">Spoiler: visibili</button></span>
+</nav>
+<header class="pad"><h1>Eventi<em data-var="ev.em">le serate in cui c'erano</em></h1></header>
+<section class="sec pad">
+  <div class="sechead">
+    <h3><span id="evcount"></span> serate <em data-var="ev.order">dalla più recente</em></h3>
+    <div class="filters">
+      <label for="ef">Fighter</label><select id="ef"></select>
+      <label for="ed">Decennio</label><select id="ed"></select>
+    </div>
+  </div>
+  <div class="events" id="events"></div>
+</section>
+<div style="height:80px"></div>
+<script src="records.js"></script>
+<script src="data.js"></script>
+<script src="ratings.js"></script>
+<script src="yt.js"></script>
+<script src="extra.js"></script>
+<script src="db/index.js"></script>
+<script src="db.js"></script>
+<script>
+// spoiler: allinea il pulsante allo stato salvato
+document.querySelectorAll('.spoilerbtn').forEach(b => { b.textContent = spoilerOn() ? 'Spoiler: nascosti' : 'Spoiler: visibili'; b.setAttribute('aria-pressed', spoilerOn()); });
+</script>
+</body>
+</html>
