@@ -122,5 +122,7 @@ $('fights').innerHTML = best.map(({f, h}, i) => `<div class="row"><span class="n
   <span class="m sp"><span style="color:#F2F0EB">${icon('m_' + methodKind(h.method))}</span> ${esc(h.method)} · ${esc(h.date)}</span><span class="v">${h.rp}</span>
   <a class="yt" href="${videoUrlReal(f, h)}" target="_blank" rel="noopener noreferrer" aria-label="Video">${ytThumb(f, h) || '<img src="img/youtube.svg" alt="">'}</a></div>`).join('');
 </script>
+<link rel="stylesheet" href="poster.css">
+<script src="poster.js"></script>
 </body>
 </html>

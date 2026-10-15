@@ -3,31 +3,32 @@
 .flp{--red:#E10600;--ink:#0B0B0B;--paper:#EDE6D6;--H:clamp(560px,94vh,900px);--minr:.24;
   position:relative;height:var(--H);overflow:hidden;isolation:isolate;container-type:inline-size;
   background:var(--red);color:var(--ink);border-block:2px solid var(--ink);margin:0}
-.flp::after{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;
-  background:url(img/grain.png),url(img/tex_grunge.png) 0 0/420px;opacity:.9;mix-blend-mode:multiply}
-.flp::before{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;background:url(img/grain.png) 37px 61px;opacity:.7}
-.flp--cream{background:var(--paper)}
-.flp--cream::after{opacity:.55}
+/* grana fine (rumore SVG + grain.png) e un velo di grunge appena percettibile, come una stampa a due colori */
+.flp::after{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.6 0 0 0 -.62'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),url(img/grain.png) 37px 61px;opacity:.55;mix-blend-mode:multiply}
+.flp::before{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;background:url(img/tex_grunge.png) 0 0/1100px;opacity:.09;mix-blend-mode:multiply}
+.flp--cream{background:var(--paper);--chip:var(--paper)}
+.flp--cream::after{opacity:.4}
 
 /* la parola: SVG senza proporzioni fisse, la larghezza dipende dal numero di lettere (--n) */
 .flp__w{position:absolute;left:50%;top:var(--wt,6%);z-index:1;overflow:visible;transform:translateX(-50%);
   --wh:min(calc(var(--H) * var(--hk,.74)),calc(94cqw / var(--n) / var(--minr)));
-  height:var(--wh);width:min(94cqw,calc(var(--n) * var(--wh) * .42));fill:var(--ink);pointer-events:none}
+  height:var(--wh);width:min(94cqw,calc(var(--n) * var(--wh) * .33));fill:var(--ink);pointer-events:none}
 .flp__w text{font-family:Anton,Impact,sans-serif}
 .flp__w--front{z-index:3}
 .flp--cream .flp__w{fill:var(--red)}
 
 /* figure */
-.flp__fig{position:absolute;bottom:0;z-index:2;height:var(--fh,86%);width:auto;max-width:none;pointer-events:none;
+.flp__fig{position:absolute;bottom:-40px;z-index:2;height:calc(var(--fh,86%) * var(--fk,1));width:auto;max-width:none;pointer-events:none;
   left:var(--fx,50%);transform:translate(-50%,var(--py,0px)) scaleX(var(--sx,1));
   filter:grayscale(1) contrast(1.32) brightness(1.04);
-  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade,22%)),transparent 96%);
-  mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade,22%)),transparent 96%)}
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade,22%) - 40px),transparent calc(100% - 40px));
+  mask-image:linear-gradient(to bottom,#000 calc(100% - var(--fade,22%) - 40px),transparent calc(100% - 40px))}
 .flp__fig.paint{filter:contrast(1.1) saturate(1.1)}
 .flp__fig.dots{filter:none;mix-blend-mode:multiply}
 
 /* microtesti */
 .flp__mc,.flp__top,.flp__bot{font:600 8.5px/1.38 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.07em;text-transform:uppercase}
+.flp__bot .flp__mc{background:var(--chip,var(--red));padding:5px 7px 4px;margin:0 -7px}
 .flp__mc b{font-weight:600;display:block;margin-bottom:3px;border-bottom:1px solid currentColor;padding-bottom:2px}
 .flp__top{position:absolute;z-index:5;top:16px;left:34px;right:34px;display:flex;justify-content:space-between;gap:16px}
 .flp__bot{position:absolute;z-index:5;left:34px;right:34px;bottom:20px;display:grid;
@@ -58,7 +59,7 @@
 .flp--war .flp__under{position:absolute;left:0;right:0;bottom:0;top:54%;z-index:0;background:url(img/poster/delacroix_duo.webp) center 40%/cover;opacity:.55;
   -webkit-mask-image:linear-gradient(to bottom,transparent,#000 30%);mask-image:linear-gradient(to bottom,transparent,#000 30%)}
 .flp--war .flp__fig{--fh:84%;--fade:14%}
-.flp--war .flp__bot{color:#F2F0EB}
+.flp--war .flp__bot{color:#F2F0EB;--chip:rgba(11,11,11,.82)}
 .flp__vm{position:absolute;z-index:5;right:34px;top:calc(var(--H) * .56);display:flex;gap:10px;align-items:stretch;
   color:#F2F0EB;border:1.5px solid currentColor;padding:7px 10px 7px 7px;max-width:290px;background:rgba(11,11,11,.55)}
 .flp__vm i{font:400 28px/.9 Anton;font-style:normal;border:1.5px solid currentColor;padding:4px 6px;display:grid;place-items:center;letter-spacing:.02em}
@@ -70,7 +71,7 @@
 .flp--cream .flp__fig{--fade:0%}
 .flp__big{position:absolute;z-index:5;left:34px;bottom:58px;font:900 clamp(44px,7.4cqw,104px)/.86 Archivo,sans-serif;letter-spacing:-.045em;color:var(--red);text-transform:lowercase}
 .flp__big span{display:block;color:var(--ink)}
-.flp__tag{position:absolute;z-index:5;right:34px;top:calc(var(--H) * .5);text-align:left;font:700 13px/1.15 Archivo,sans-serif;letter-spacing:-.01em;text-transform:uppercase}
+.flp__tag{position:absolute;z-index:5;background:var(--paper);padding:6px 8px;right:34px;top:calc(var(--H) * .5);text-align:left;font:700 13px/1.15 Archivo,sans-serif;letter-spacing:-.01em;text-transform:uppercase}
 .flp__tag s{text-decoration:none;display:inline-block;color:var(--red);position:relative}
 .flp__tag s::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:2px;background:var(--ink)}
 .flp__dot{display:inline-block;width:11px;height:11px;border:2px solid currentColor;border-radius:50%;vertical-align:-1px;margin-right:6px}
@@ -90,10 +91,17 @@
   .flp__bot{--cols:2 !important;gap:10px 16px;bottom:16px}
   .flp__bot .hide-s{display:none}
   .flp__side{display:none}
-  .flp__vm{right:16px;left:16px;max-width:none;top:calc(var(--H) * .5)}
-  .flp__big{left:22px;bottom:150px}
+  .flp__fig{--fk:.74;--fade:34%}
+  .flp--home .flp__fig:first-of-type{--fx:27% !important}.flp--home .flp__fig:last-of-type{--fx:73% !important}
+  .flp--war .flp__fig:first-of-type{--fx:25% !important}.flp--war .flp__fig:last-of-type{--fx:75% !important}
+  .flp--cream .flp__fig{--fk:.8;--fade:34%}
+  .flp__vm{right:16px;left:16px;max-width:none;top:calc(var(--H) * .6)}
+  .flp__big{left:22px;bottom:150px;font-size:44px;background:var(--paper);padding:4px 6px 2px;margin-left:-6px}
   .flp__tag{right:22px;top:auto;bottom:150px;text-align:right}
   .flp--paint .flp__glitch{top:56%}
   .flp__glitch{width:84cqw;bottom:118px}
 }
 @media (prefers-reduced-motion:reduce){.flp__fig,.flp--paint .flp__plate{transform:translate(-50%,0) scaleX(var(--sx,1))}.flp--paint .flp__plate{transform:none}}
+/* crema: la colonna centrale resta vuota, ci passa la figura a retino */
+.flp--cream .flp__bot{grid-template-columns:1fr 1fr 1.4fr 1fr 1fr}
+@media (max-width:700px){.flp--cream .flp__bot{grid-template-columns:1fr 1fr}}

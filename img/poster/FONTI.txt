@@ -1,0 +1,36 @@
+Dipinti usati nei poster (poster.js). Tutti di pubblico dominio (autori morti da oltre 70 anni,
+riproduzioni fotografiche fedeli di opere bidimensionali, marcate "Public domain" su Wikimedia Commons).
+Scaricati a media risoluzione (miniatura 1920 px di Commons o originale se piu' piccolo) in img/poster/src/,
+poi ritoccati da prep_poster.py.
+
+1. Peter Nicolai Arbo, "Åsgårdsreien" (La caccia selvaggia di Odino), 1872
+   Nasjonalmuseet, Oslo, NG.M.00258
+   https://commons.wikimedia.org/wiki/File:Peter_Nicolai_Arbo_-_The_wild_Hunt_of_Odin_-_NG.M.00258_-_National_Museum_of_Art,_Architecture_and_Design.jpg
+   -> src/arbo.jpg -> arbo.webp (banda dei cavalieri, schiarita e scaldata). Poster di eventi.html.
+
+2. Guido Reni, "San Michele Arcangelo sconfigge Satana", circa 1636
+   Santa Maria della Concezione dei Cappuccini, Roma
+   https://commons.wikimedia.org/wiki/File:Guido_Reni_031.jpg
+   -> src/reni.jpg -> reni_cut.webp (scontornato con rembg isnet-general-use), ht_reni.webp (retino).
+   Figura del poster scheda per i fighter del database senza foto; angolo rosso del cartellone se manca la foto.
+
+3. Jean-Léon Gérôme, "Pollice verso", 1872
+   Phoenix Art Museum
+   https://commons.wikimedia.org/wiki/File:Jean-Leon_Gerome_Pollice_Verso.jpg
+   -> src/gerome.jpg -> gerome_cut.webp (gladiatore vincitore sul vinto, rembg), ht_gerome.webp (retino).
+   Figura della variante crema e dell'angolo blu del cartellone per chi non ha foto.
+
+4. Eugène Delacroix, "Combattimento del Giaurro e del Pascià" (Combat du Giaour et Hassan), 1826
+   Art Institute of Chicago
+   https://commons.wikimedia.org/wiki/File:Eug%C3%A8ne_Delacroix_-_Combat_du_Giaour_et_Hassan_(1826).jpg
+   -> src/delacroix.jpg -> delacroix_duo.webp (bicromia nero/rosso). Fascia bassa del poster di elementi.html.
+
+Scaricati ma NON usati (restano in src/, non cancellati):
+- src/rubens.jpg  Peter Paul Rubens, "Battaglia delle Amazzoni", Public domain,
+  https://commons.wikimedia.org/wiki/File:Peter_Paul_Rubens_-_The_Battle_of_the_Amazons_-_WGA20272.jpg
+- src/arbo3.jpg   Arbo, "The Wild Hunt of Odin", 1868, Public domain,
+  https://commons.wikimedia.org/wiki/File:Arbo_The-Wild-Hunt-of-Odin.jpg
+- src/arbo2.jpg   foto del 1872 di un utente, licenza CC BY-SA 4.0: NON usarla senza attribuzione.
+  https://commons.wikimedia.org/wiki/File:%C3%85sg%C3%A5rdsreien_de_Peter_Nicolai_Arbo_(1872).jpg
+
+Retini dei fighter (ht_<id>.webp): generati da img/<id>.webp con prep_poster.py (punti neri, griglia a 45°).
