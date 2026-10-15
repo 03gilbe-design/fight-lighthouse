@@ -1,8 +1,4 @@
-// pagina già vista (stessa pagina e stesso fighter): niente animazioni d'entrata la seconda volta. L'arena del Cartellone resta animata.
-const SEEN = (() => {
-  const k = 'fl_seen:' + location.pathname.split('/').pop() + location.search;
-  try { const v = localStorage.getItem(k) === '1'; localStorage.setItem(k, '1'); return v; } catch (e) { return false; }
-})();
+const SEEN = false;   // le animazioni d'entrata partono una volta per pagina (IntersectionObserver che si scollega), non a ogni scroll
 
 // Funzioni aggiunte: motivazioni del rating (carriera), avversari suggeriti (cartellone),
 // eventi raggruppati (eventi.html), scorciatoia "/" ed Esc. Si appoggia a data.js senza toccarlo.
