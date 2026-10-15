@@ -310,6 +310,71 @@ body{animation:pagein .35s ease-out}
 .spoilerbtn{display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--grey);border:1.5px solid #333;font:600 10px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;padding:0 12px;min-height:40px;cursor:pointer}
 .spoilerbtn[aria-pressed="true"]{color:var(--white);border-color:var(--red)}
 .spoiler .sp:not(.shown){filter:blur(7px);cursor:pointer;user-select:none}
+
+/* ---------- ARENA: tattiche, fiato, tagli, cartellino, 1000 simulazioni ---------- */
+.tacpick{display:grid;grid-template-columns:minmax(150px,auto) repeat(4,1fr);gap:8px;align-items:center;padding:8px 0 4px}
+.tacpick[hidden]{display:none}
+.tacpick .tk{font:600 11px/1.3 "IBM Plex Mono";letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.tacpick .tk b{display:inline-block;min-width:1.4em;color:var(--red);font:400 22px/1 Anton;vertical-align:-3px}
+.tac{background:transparent;color:var(--white);border:1.5px solid #555;font:400 17px/1.05 Anton;letter-spacing:.04em;text-transform:uppercase;padding:6px 10px;min-height:46px;cursor:pointer}
+.tac kbd{font:600 9px "IBM Plex Mono";color:var(--grey);border:1px solid #444;padding:1px 4px;margin-left:6px;vertical-align:2px}
+.tac:hover{border-color:var(--white)}
+.tac[aria-pressed="true"]{background:var(--red);border-color:var(--red)}
+.tac[aria-pressed="true"] kbd{color:var(--white);border-color:var(--white)}
+.tac:disabled{opacity:.35;cursor:default}
+.tacpick.wait .tac{animation:tacwait 1s ease-in-out infinite alternate}
+.tacpick.wait .tac[aria-pressed="true"]{animation:none}
+@keyframes tacwait{to{border-color:var(--white)}}
+.tacrow{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;min-height:22px;padding-top:8px;font:400 18px/1 Anton;text-transform:uppercase}
+.tacrow small{font:600 9px "IBM Plex Mono";letter-spacing:.16em;color:var(--grey);margin-right:6px;vertical-align:2px}
+.tacrow .a{color:var(--red)} .tacrow .b{text-align:right}
+.tacrow .b small{margin:0 0 0 6px}
+.hp .nm{display:flex;align-items:flex-end;gap:8px;margin-bottom:8px;min-height:1em}
+.hp .nm b{margin:0;min-width:0}
+.hp.b .nm{flex-direction:row-reverse}
+.bleed{display:flex;gap:2px;flex:none}
+.bleed svg{width:16px;height:21px;filter:url(#pencilL)}
+.gas{position:relative;height:9px;margin-top:5px;border:1.5px solid var(--grey)}
+.gas i{position:absolute;inset:1.5px;background:repeating-linear-gradient(90deg,var(--grey) 0 5px,transparent 5px 7px);transform-origin:left;transition:transform .5s ease-out}
+.hp.b .gas i{transform-origin:right}
+.gas.low{border-color:var(--red)} .gas.low i{background:repeating-linear-gradient(90deg,var(--red) 0 5px,transparent 5px 7px)}
+#arena .rc rect{filter:url(#pencilL)}
+#arena .rc text{font-family:Anton;text-anchor:middle;dominant-baseline:central}
+#arena .rc{animation:cardIn .4s ease-out}
+.scorewrap{overflow-x:auto;padding:4px 0 10px}
+.scorewrap[hidden]{display:none}
+.sc{width:100%;border-collapse:collapse;font:400 13px/1.2 "IBM Plex Mono";color:var(--white)}
+.sc caption{text-align:left;font:600 10px "IBM Plex Mono";letter-spacing:.2em;text-transform:uppercase;color:var(--grey);padding-bottom:6px}
+.sc caption .ra{color:var(--red)}
+.sc th,.sc td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+.sc thead th{font:600 10px "IBM Plex Mono";letter-spacing:.12em;color:var(--grey);text-transform:uppercase}
+.sc tbody th{font:400 18px Anton}
+.sc .t{color:var(--grey);font-size:11px}
+.sc .ra{color:var(--red)} .sc .w{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.sc .n{color:var(--grey);font-size:11px;text-align:left}
+.sc tfoot td,.sc tfoot th{font:400 20px Anton;border-top:2px solid var(--white);border-bottom:0}
+.sc tr.new{animation:rowin .6s ease-out}
+@keyframes rowin{from{background:rgba(225,6,0,.35)}}
+.simsec{padding:26px 0 10px;border-top:1px solid var(--line)}
+.simsec[hidden]{display:none}
+.simsec h4{margin:0 0 14px;font:400 clamp(30px,4vw,48px)/.9 Anton;text-transform:uppercase}
+.simsec h4 em{font:italic 400 .55em "Instrument Serif";text-transform:none;color:var(--red);margin-left:8px}
+.simsec .simnote{margin:10px 0 0;font:400 12px/1.5 "IBM Plex Mono";color:var(--grey)}
+.simgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 40px;margin-top:22px}
+.simgrid .mrow{grid-template-columns:130px 1fr 64px}
+.simgrid .mrow .lb{font-size:17px}
+.simhist{width:100%;max-width:820px;height:auto;display:block;margin-top:22px;overflow:visible}
+.simhist text{font-family:Anton;text-anchor:middle}
+.simhist .bar{filter:url(#pencilL)}
+@media (max-width:600px){
+  .tacpick{grid-template-columns:1fr 1fr}
+  .tacpick .tk{grid-column:1/-1}
+  .tac{font-size:15px;padding:6px}
+  .tacrow{font-size:15px}
+  .simgrid{grid-template-columns:1fr}
+  .simgrid .mrow{grid-template-columns:1fr 56px}
+}
+@media (prefers-reduced-motion:reduce){.tacpick.wait .tac,.sc tr.new,#arena .rc,.gas i{animation:none;transition:none}}
 </style>
 <link rel="stylesheet" href="fx.css">
 </head>
@@ -383,16 +448,30 @@ body{animation:pagein .35s ease-out}
 <section class="sec pad" id="arenaSec">
   <div class="sechead"><h3>L'arena <em data-var="arena.em">le loro nature si scontrano</em></h3><p data-var="arena.p">Ogni cerchio ha l'area del numero di vittorie con quel metodo. Premi "Falli combattere": ogni elemento va contro lo stesso elemento dell'altro, il più forte spinge, chi non ce l'ha viene attraversato.</p></div>
   <div class="key" id="key"></div>
+  <div class="tacpick" id="tacPick" role="group" aria-label="Tattica del tuo angolo (rosso)" hidden>
+    <span class="tk" id="tacMsg" aria-live="polite"></span>
+    <button class="tac" type="button" data-t="carica" aria-pressed="false">Carica<kbd>1</kbd></button>
+    <button class="tac" type="button" data-t="muovi" aria-pressed="true">Colpisci e muoviti<kbd>2</kbd></button>
+    <button class="tac" type="button" data-t="copri" aria-pressed="false">Copriti<kbd>3</kbd></button>
+    <button class="tac" type="button" data-t="ko" aria-pressed="false">Cerca il KO<kbd>4</kbd></button>
+  </div>
+  <div class="tacrow" id="tacRow"><span class="a" id="tacA"></span><span></span><span class="b" id="tacB"></span></div>
   <div class="hud" id="hud">
-    <div class="hp a"><b id="hpNameA"></b><div class="hpbar" id="hpBarA" role="meter" aria-label="Vita angolo rosso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i class="ghost" id="hpGhostA"></i><i class="fill" id="hpA"></i></div></div>
+    <div class="hp a"><div class="nm"><b id="hpNameA"></b><span class="bleed" id="bleedA"></span></div><div class="hpbar" id="hpBarA" role="meter" aria-label="Vita angolo rosso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i class="ghost" id="hpGhostA"></i><i class="fill" id="hpA"></i></div>
+      <div class="gas" id="gasBarA" role="meter" aria-label="Fiato angolo rosso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i id="gasA"></i></div></div>
     <div class="rnd" id="rnd"><b id="rndN">VS</b><small id="rndOf"></small></div>
-    <div class="hp b"><b id="hpNameB"></b><div class="hpbar" id="hpBarB" role="meter" aria-label="Vita angolo blu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i class="ghost" id="hpGhostB"></i><i class="fill" id="hpB"></i></div></div>
+    <div class="hp b"><div class="nm"><b id="hpNameB"></b><span class="bleed" id="bleedB"></span></div><div class="hpbar" id="hpBarB" role="meter" aria-label="Vita angolo blu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i class="ghost" id="hpGhostB"></i><i class="fill" id="hpB"></i></div>
+      <div class="gas" id="gasBarB" role="meter" aria-label="Fiato angolo blu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i id="gasB"></i></div></div>
   </div>
   <ol class="calllog" id="calllog" aria-label="Righe precedenti"></ol>
   <p class="call" id="call" aria-live="polite"></p>
   <div class="arenawrap"><svg id="arena" viewBox="0 0 1000 480" role="img" aria-label="Arena degli elementi"></svg></div>
-  <div class="arenabar"><button class="again" id="again" type="button"></button>
+  <div class="arenabar"><button class="again" id="again" type="button"></button><button class="again skip" id="sim1000" type="button">Simula 1000 volte</button>
     <span class="moves" id="moves" hidden><button class="again" id="hit" type="button">Colpisci <kbd>spazio</kbd></button><button class="again" id="dodge" type="button">Schiva <kbd>S</kbd></button><button class="again skip" id="skip" type="button">Salta</button><span class="push" id="push" title="Spinta sulle probabilità del tuo angolo"></span></span></div>
+  <div class="scorewrap" id="scoreWrap" hidden><table class="sc"><caption id="scCap"></caption>
+    <thead><tr><th>Round</th><th>Tattiche</th><th>Giudice 1</th><th>Giudice 2</th><th>Giudice 3</th><th></th></tr></thead>
+    <tbody id="scBody"></tbody><tfoot id="scFoot"></tfoot></table></div>
+  <section class="simsec" id="simSec" hidden aria-live="polite"></section>
   <section class="verdict-sec" id="verdictSec" hidden aria-live="polite">
     <div class="vhead"><div><div class="k" id="vK">Il verdetto</div><h3 id="vTitle"></h3></div><div class="odds" id="vOdds"></div></div>
     <div class="vbar"><span></span><button class="again" id="rematch" type="button"></button></div>
@@ -408,6 +487,7 @@ body{animation:pagein .35s ease-out}
 <script src="data.js"></script>
 <script src="ratings.js"></script>
 <script src="tree.js"></script>
+<script src="sim.js"></script>
 <script src="yt.js"></script>
 <script src="extra.js"></script>
 <script src="db/index.js"></script>
@@ -496,6 +576,7 @@ function renderArena(a, b) {
     ${cutout('a', a)}${cutout('b', b)}
     <g id="sparks"></g><g id="fx"></g>
     ${nameLink('a', a)}${nameLink('b', b)}
+    <g id="rcard"></g>
     <g id="outcome"></g>
     <g class="stamp" id="stampA"></g><g class="stamp" id="stampB"></g>`;
   $('again').innerHTML = `${icon('vs')}Falli combattere`;
@@ -540,23 +621,9 @@ function resetArena() {
   ['ringA', 'ringB'].forEach(id => { $(id).style.opacity = 1; });
   ['cutA', 'cutB'].forEach(id => { $(id).style.transform = 'translate(0px,0px)'; $(id).style.opacity = 1; });
   ['stampA', 'stampB'].forEach(id => { $(id).classList.remove('on'); $(id).innerHTML = ''; });
-  $('outcome').innerHTML = '';
+  $('outcome').innerHTML = ''; $('rcard').innerHTML = '';
   hudReset();
   ['cutImgA', 'cutImgB'].forEach(id => { $(id).setAttribute('href', $(id).dataset.main); setFlip($(id), $(id).dataset.flip === '1'); $(id).style.opacity = ''; });
-}
-
-// cartellini dei giudici coerenti col tipo di decisione: round vinti -> punti (10 al vincitore, 9 al perdente)
-function judgeCards(how, R, aWins) {
-  const score = w => [10 * w + 9 * (R - w), 9 * w + 10 * (R - w)];   // [vincitore, perdente]
-  // round vinti dal vincitore: almeno metà+1 (con 12 round, 6 darebbe 114-114 su una decisione); il cartellino contrario ne ha uno meno della metà
-  const win = () => score(Math.floor(R / 2) + 1 + Math.floor(Math.random() * (R - Math.floor(R / 2))));
-  const against = () => score(Math.ceil(R / 2) - 1);
-  let cards;
-  if (/divisa/.test(how) && !/Pareggio/.test(how)) cards = [win(), win(), against()];
-  else if (/maggioranza/.test(how) && !/Pareggio/.test(how)) cards = [win(), win(), [10 * R - Math.floor(R / 2), 10 * R - Math.floor(R / 2)]];
-  else if (/Pareggio/.test(how)) { const e = 10 * R - Math.floor(R / 2); cards = /unanime/.test(how) ? [[e, e], [e, e], [e, e]] : /maggioranza/.test(how) ? [[e, e], [e, e], win()] : [win(), against(), [e, e]]; }
-  else cards = [win(), win(), win()];
-  return cards.map(([w, l]) => (aWins ? [w, l] : [l, w]));          // sempre [rosso, blu]
 }
 
 // una grafica diversa per ogni esito, al centro dell'arena
@@ -576,10 +643,15 @@ function outcomeGraphic(v, a, b) {
   if (v.nc) return `<g class="oc"><circle cx="${cx}" cy="${cy}" r="70" fill="none" stroke="#8C8A86" stroke-width="${STROKE_BIG.m}"/>
       <line x1="${cx - 50}" y1="${cy + 50}" x2="${cx + 50}" y2="${cy - 50}" stroke="#8C8A86" stroke-width="${STROKE_BIG.g}" stroke-linecap="round"/>
       <text x="${cx}" y="${cy - 110}" fill="#F2F0EB" font-size="30">NO CONTEST</text></g>`;
-  if (v.draw) return `<g class="oc cards">${cardsSvg(judgeCards(how, v.rules.rounds, true), how.toUpperCase())}</g>`;
+  // i cartellini veri: la somma round per round dei tre giudici (sempre [rosso, blu])
+  if (v.draw) return `<g class="oc cards">${cardsSvg(v.cards, how.toUpperCase())}</g>`;
   if (/Squalifica/.test(how)) return `<g class="oc"><rect x="${cx - 40}" y="${cy - 70}" width="80" height="112" rx="6" fill="#E10600" stroke="#F2F0EB" stroke-width="${STROKE_BIG.g}" paint-order="stroke" transform="rotate(12 ${cx} ${cy})"/>
       <text x="${cx}" y="${cy - 130}" fill="#F2F0EB" font-size="30">SQUALIFICA</text><text x="${cx}" y="${cy - 106}" fill="#8C8A86" font-size="16">${esc(surname(v.loser))} fuori</text></g>`;
-  if (/^Decisione/.test(how)) return `<g class="oc cards">${cardsSvg(judgeCards(how, v.rules.rounds, v.winner === a), how.toUpperCase())}</g>`;
+  if (/^Decisione/.test(how)) return `<g class="oc cards">${cardsSvg(v.cards, how.toUpperCase())}</g>`;
+  if (/stop medico/.test(how)) return `<g class="oc"><circle cx="${cx}" cy="${cy}" r="74" fill="#F2F0EB" stroke="#0B0B0B" stroke-width="${STROKE_BIG.m}"/>
+      <path d="M${cx - 16} ${cy - 50}h32v34h34v32h-34v34h-32v-34h-34v-32h34Z" fill="#E10600" stroke="#0B0B0B" stroke-width="${STROKE_BIG.m}" stroke-linejoin="round"/>
+      <text x="${cx}" y="${cy - 130}" fill="#F2F0EB" font-size="30">STOP MEDICO</text>
+      <text x="${cx}" y="${cy - 106}" fill="#8C8A86" font-size="15" style="font-family:'IBM Plex Mono'">ROUND ${v.round} · ${v.time} · TAGLIO</text></g>`;
   if (/^Sottomissione/.test(how)) {
     const hold = (how.match(/\((.+)\)/) || [, ''])[1];
     return `<g class="oc"><circle class="ring" cx="${cx}" cy="${cy}" r="78" fill="none" stroke="#F2F0EB" stroke-width="${STROKE_BIG.m}"/>
@@ -631,8 +703,7 @@ function fight() {
   $('arenaSec').scrollIntoView({behavior: 'smooth', block: 'start'});
   $('verdictSec').hidden = true;   // il verdetto vecchio non resta sotto il match nuovo
   centerArena();
-  const v = rollVerdict(a, b);   // la verità di partenza; la spinta del giocatore la può spostare nell'ultimo round
-  if (REDUCED.matches) return rounds(a, b, v);
+  if (REDUCED.matches) return startBout(a, b);   // niente animazione: il match si simula tutto e si vede il verdetto
   fightTimers.push(setTimeout(() => {
     ['ringA', 'ringB'].forEach(id => { $(id).style.opacity = 0.15; });
     $('cutA').style.transform = 'translate(60px,0px)'; $('cutB').style.transform = 'translate(-60px,0px)';
@@ -655,7 +726,7 @@ function fight() {
     });
     fightTimers.push(setTimeout(() => $('orbs').setAttribute('filter', 'url(#goo)'), 1450));   // dopo l'urto: si fondono
   }, 650));
-  rounds(a, b, v);
+  startBout(a, b);
 }
 
 /* --- barre della vita e round --- */
@@ -668,22 +739,33 @@ function hpSet(sd, hp) {
 }
 function flash(el, cls) { el.classList.remove(cls, 'kd', 'hurt'); void el.getBoundingClientRect(); el.classList.add(cls); }
 function hudReset(a, b) {
-  bout = null; $('moves').hidden = true; callLog = [];
-  ['A', 'B'].forEach(sd => { $('hp' + sd).style.transitionDuration = ''; hpSet(sd, 100); $('hpBar' + sd).classList.remove('kd', 'hurt'); });
+  bout = null; $('moves').hidden = true; $('tacPick').hidden = true; callLog = [];
+  ['A', 'B'].forEach(sd => { $('hp' + sd).style.transitionDuration = ''; hpSet(sd, 100); gasSet(sd, 100); bleedSet(sd, 0); $('hpBar' + sd).classList.remove('kd', 'hurt'); });
   if (a) { $('hpNameA').textContent = surname(a); $('hpNameB').textContent = surname(b); }
   $('rndN').textContent = 'VS'; $('rndOf').textContent = ''; $('call').textContent = ''; $('calllog').innerHTML = '';
+  $('tacA').innerHTML = $('tacB').innerHTML = ''; $('scoreWrap').hidden = true;
 }
+// fiato: barra sottile sotto la vita, rossa quando è quasi finito
+function gasSet(sd, st) {
+  $('gas' + sd).style.transform = `scaleX(${(Math.max(0, st) / 100).toFixed(3)})`;
+  $('gasBar' + sd).classList.toggle('low', st < 30); $('gasBar' + sd).setAttribute('aria-valuenow', Math.round(st));
+}
+// taglio: una goccia a matita per livello (1 lieve, 2 aperto, 3 grave)
+const DROP = '<svg viewBox="0 0 16 21" aria-hidden="true"><path d="M8 1.5C8 1.5 2 9.5 2 13.5a6 6 0 0 0 12 0C14 9.5 8 1.5 8 1.5Z" fill="#E10600" stroke="#F2F0EB" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 13.5q0 2.6 2.6 3.4" fill="none" stroke="#F2F0EB" stroke-width="1.2" stroke-linecap="round"/></svg>';
+function bleedSet(sd, cut) {
+  const el = $('bleed' + sd);
+  if (+el.dataset.cut === cut) return;
+  el.dataset.cut = cut; el.innerHTML = DROP.repeat(cut);
+  el.title = cut ? `Taglio ${['', 'lieve', 'aperto', 'grave'][cut]}` : ''; el.setAttribute('aria-label', el.title);
+}
+function hudFrom(S) { ['A', 'B'].forEach(k => { hpSet(k, S[k].hp); gasSet(k, S[k].st); bleedSet(k, S[k].cut); }); }
 
-// barre finali coerenti col verdetto: KO/sottomissione a zero, decisione con distacco, pari vicine, NC e squalifica come sono
-function finale(v, a, hp) {
-  if (v.nc || /Squalifica/.test(v.how || '')) return;
-  if (v.draw) { const m = (hp.A + hp.B) / 2; hp.A = m + 1; hp.B = m - 1; }
-  else {
-    const W = v.winner === a ? 'A' : 'B', L = W === 'A' ? 'B' : 'A';
-    if (/^Decisione/.test(v.how)) hp[L] = Math.max(4, Math.min(hp[L], hp[W] - (/unanime/.test(v.how) ? 22 : /maggioranza/.test(v.how) ? 14 : 8)));
-    else { if (/^Sottomissione/.test(v.how)) $('hp' + L).style.transitionDuration = '.12s'; hp[L] = 0; }   // la presa: giù di colpo
-  }
-  hpSet('A', hp.A); hpSet('B', hp.B);
+// KO e sottomissione: la barra di chi perde va a zero (la presa di colpo); ai punti e negli stop restano come sono
+function finale(v, a) {
+  if (!v.winner || /^Decisione|stop medico|Abbandono|spugna|angolo ferma/.test(v.how)) return;
+  const L = v.winner === a ? 'B' : 'A';
+  if (/^Sottomissione/.test(v.how)) $('hp' + L).style.transitionDuration = '.12s';
+  hpSet(L, 0);
 }
 
 /* --- effetti nell'arena: foto che scattano e incassano, flash, linee di velocità, onomatopee --- */
@@ -741,93 +823,218 @@ function propFx(line) {
 }
 const fxCount = n => fx(`<text class="fxcount" x="${CENTER}" y="220" font-size="190" fill="#F2F0EB">${n}</text>`, 700);
 
-/* --- il match, un passo alla volta: ogni passo dice quanto aspettare prima del successivo --- */
-function rounds(a, b, v) {
-  if (REDUCED.matches) { settle(v, a, b, 0); finale(v, a, {A: 60, B: 60}); showVerdict(a, b, v); return; }
-  const R = v.rules.rounds, n = v.draw ? R : v.round, per = 55 / R;   // a fine match ognuno ha perso circa metà vita
-  const side = {A: a, B: b}, other = sd => (sd === 'A' ? 'B' : 'A');
-  bout = {a, b, v, hp: {A: 100, B: 100}, push: 0, dodge: false, locked: false, until: 0};
+/* --- il match, un passo alla volta: lo stesso motore delle 1000 simulazioni (sim.js), qui animato ---
+   prima di ogni round scegli la tattica (5 s, poi resta quella di prima); il blu sceglie da solo */
+const later = (fn, ms) => fightTimers.push(setTimeout(fn, ms));
+const PICK_S = 5;
+const oth = k => (k === 'A' ? 'B' : 'A');
+const tacPaint = () => document.querySelectorAll('#tacPick .tac').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.t === bout.tac)));
+const showTacs = S => { $('tacA').innerHTML = `<small>tattica</small>${TAC[S.A.tac].label}`; $('tacB').innerHTML = `${TAC[S.B.tac].label}<small>tattica</small>`; };
+function startBout(a, b) {
+  const cal = simSetup(a, b);
+  bout = {a, b, cal, S: newBout(cal.pa, cal.pb, cal.rules, cal.gap), push: 0, dodge: false, locked: false, until: 0, tac: 'muovi', phase: 0, v: null, t0: Date.now()};
+  $('scCap').innerHTML = `Cartellino round per round · <span class="ra">${esc(surname(a))}</span> – ${esc(surname(b))}`;
+  $('scBody').innerHTML = $('scFoot').innerHTML = '';
+  if (REDUCED.matches) { finishRest(bout.S, Math.random); return endNow(); }
   $('moves').hidden = false; $('push').textContent = ''; $('hit').disabled = $('dodge').disabled = false;
+  $('tacPick').hidden = false; document.querySelectorAll('#tacPick .tac').forEach(x => { x.disabled = false; }); tacPaint();
   $('hit').focus({preventScroll: true});
-  const reading = () => Math.max(0, bout.until - Date.now());   // quanto resta da leggere della riga attuale
-  // scambio: tutti e due tolgono un po'; prima del verdetto nessuno scende sotto 20
-  const EX = R <= 5 ? 3 : 2;   // scambi per round: pochi e distanziati, ogni colpo si deve vedere
-  const exchange = () => {
-    const dA = per / EX * (.5 + Math.random()), dB = per / EX * (.5 + Math.random()), att = dB >= dA ? 'A' : 'B';
-    if (bout.dodge && att === 'B') { bout.dodge = false; dodgeFx('A'); talk('dodge', a, b); }
-    else { bout.hp.A = Math.max(20, bout.hp.A - dA); hitFx(att); talk('hit', side[att], side[other(att)]); }
-    bout.hp.B = Math.max(20, bout.hp.B - dB); bout.lastFx = Date.now();
-    hpSet('A', bout.hp.A); hpSet('B', bout.hp.B);
+  later(pickPhase, 700);   // prima l'urto dei cerchi
+}
+function pickPhase() {
+  if (!bout || bout.locked) return;
+  const id = ++bout.phase, n = bout.S.r + 1;
+  let left = PICK_S;
+  bout.picking = true; $('tacPick').classList.add('wait');
+  const tick = () => {
+    if (!bout || bout.phase !== id || !bout.picking) return;
+    if (left <= 0) return beginRound();
+    $('tacMsg').innerHTML = `Tattica per il round ${n} <b>${left}</b>`;
+    left--; later(tick, 1000);
   };
-  const steps = [() => 700];   // prima l'urto dei cerchi
-  for (let i = 1; i < n; i++) {
-    steps.push(() => { newRound(i, R); talk('round', ...(Math.random() < .5 ? [a, b] : [b, a]), false, i); return 700; });
-    for (let x = 0; x < EX; x++) steps.push(() => { exchange(); return 1400; });
-    steps.push(() => { const lead = bout.hp.A >= bout.hp.B ? 'A' : 'B'; talk('bell', side[lead], side[other(lead)], false, i); return 600; });
+  tick();
+}
+function chooseTac(t) {
+  if (!bout || bout.locked || !TAC[t]) return;
+  bout.tac = t; tacPaint();
+  if (bout.picking) beginRound();
+  else $('tacMsg').textContent = `Dal round ${bout.S.r + 1}: ${TAC[t].label}`;
+}
+function beginRound() {
+  const {a, b, S} = bout;
+  bout.picking = false; $('tacPick').classList.remove('wait'); $('rcard').innerHTML = '';
+  startRound(S, bout.tac, autoTac(S, 'B', Math.random));
+  // dopo l'urto i cerchi si spengono: il centro dell'arena resta libero per colpi e cartellino
+  if (S.r === 1) later(() => document.querySelectorAll('#arena .orb').forEach(o => { o.style.opacity = .12; }), Math.max(0, bout.t0 + 2600 - Date.now()));
+  $('tacMsg').textContent = `Round ${S.r} · scegli il prossimo`;
+  showTacs(S); newRound(S.r, S.rules.rounds);
+  talk('round', ...(Math.random() < .5 ? [a, b] : [b, a]), false, S.r);
+  later(doBeat, 900);
+}
+// uno scambio del motore: chi ha fatto più danno colpisce sullo schermo; atterramenti e tagli hanno la loro riga
+function doBeat() {
+  if (!bout) return;
+  const {a, b, S} = bout, side = {A: a, B: b}, dodged = bout.dodge;
+  bout.dodge = false;
+  const ev = beat(S, Math.random, dodged);
+  hudFrom(S); bout.lastFx = Date.now();
+  if (ev.fin) return finishAnim();
+  let wait = 1400;
+  const att = ev.dB >= ev.dA ? 'A' : 'B';
+  if (ev.kd) { const L = ev.kd, W = oth(L); hitFx(W, true); flash($('hpBar' + L), 'kd'); wait = Math.max(wait, talk('kd', side[W], side[L], true)); }
+  else if (dodged) { dodgeFx('A'); talk('dodge', a, b); }
+  else { hitFx(att); talk('hit', side[att], side[oth(att)]); }
+  if (ev.cut) {
+    const k = ev.cut, say = () => talk(S[k].cut >= 3 ? 'cut3' : 'cut', side[oth(k)], side[k], true);
+    if (ev.kd) { later(say, wait); wait += 2600; } else wait = Math.max(wait, say());
   }
-  // ultimo round: uno scambio, poi il verdetto (con la spinta), atterramenti, chiusura. Le righe importanti aspettano che la precedente sia letta
-  const W = () => (v.winner === a ? 'A' : 'B'), how = () => v.how || '';
-  steps.push(() => { newRound(n, R); talk('round', a, b, false, n); return 800; });
-  steps.push(() => { exchange(); return 1400; });
-  steps.push(() => { exchange(); return 1400; });
-  steps.push(() => { bout.locked = true; $('hit').disabled = $('dodge').disabled = true; settle(v, a, b, bout.push); return reading(); });
-  for (let j = 0; j < (v.winner ? Math.min(3, v.kd || 0) : 0); j++) {
-    steps.push(() => {
-      const L = other(W());
-      bout.hp[L] = Math.max(6, bout.hp[L] - 14); hpSet(L, bout.hp[L]); flash($('hpBar' + L), 'kd');
-      hitFx(W(), true);
-      return talk('kd', v.winner, v.loser, true);
-    });
-  }
-  steps.push(() => {   // il colpo che chiude
-    if (v.winner && !/^Decisione|Squalifica|^Sottomissione/.test(how())) { hitFx(W(), true, /^KO/.test(how()) ? 'KO' : randomOf(WORDS)); finale(v, a, bout.hp); flash($('hpBar' + other(W())), 'kd'); return /^KO/.test(how()) ? 700 : 500; }
-    if (/^Sottomissione/.test(how())) { jolt(other(W()), 'shake'); fx(`<text class="fxword" x="${CENTER}" y="200" font-size="110" fill="#F2F0EB">TAP</text>`, 900); finale(v, a, bout.hp); return 700; }
-    return 0;
-  });
-  if (v.winner && /^KO/.test(v.how || '')) [3, 2, 1].forEach(c => steps.push(() => { fxCount(c); return 650; }));   // il conteggio dell'arbitro
-  const closing = bout.closing = () => {   // barre finali + la riga che chiude (anche da Salta)
-    finale(v, a, bout.hp);
-    if (v.nc) return talk('nc', ...(Math.random() < .5 ? [a, b] : [b, a]), true);
-    if (v.draw) return talk('draw', a, b, true);
-    if (/Squalifica/.test(how())) { if (v.loser.id === 'tyson') v.how = 'Squalifica (morso all\'orecchio)'; return talk('dq', v.loser, v.winner, true); }
-    return talk(/^Decisione/.test(how()) ? 'dec' : /^Sottomissione/.test(how()) ? 'sub' : /Abbandono/.test(how()) ? 'rtd' : 'ko', v.winner, v.loser, true);
-  };
-  bout.last = [n, R];
-  steps.push(closing);
+  later(S.beat < S.rules.ex ? doBeat : roundEnd, wait);
+}
+function roundEnd() {
+  if (!bout) return;
+  const {a, b, S} = bout, side = {A: a, B: b};
+  const rec = endRound(S, Math.random);
+  hudFrom(S); syncTable(); roundCard(rec);
+  if (S.end) return finishAnim();
+  const lead = rec.cards.reduce((s, [x, y]) => s + Math.sign(x - y), 0) >= 0 ? 'A' : 'B';
+  later(pickPhase, Math.max(1800, talk('bell', side[lead], side[oth(lead)], false, rec.r)));
+}
+// il colpo che chiude, il conteggio, la riga finale, il verdetto
+function finishAnim() {
+  const {a, b, S} = bout, v = bout.v = verdictOf(S, a, b), kind = S.end.kind, W = v.winner === a ? 'A' : 'B', steps = [];
+  bout.locked = true; bout.picking = false; lockControls(); syncTable();   // anche il round interrotto entra in tabella
+  if (kind === 'ko' || kind === 'tko') steps.push(() => { hitFx(W, true, kind === 'ko' ? 'KO' : randomOf(WORDS)); finale(v, a); flash($('hpBar' + oth(W)), 'kd'); return kind === 'ko' ? 700 : 500; });
+  if (kind === 'sub') steps.push(() => { jolt(oth(W), 'shake'); fx(`<text class="fxword" x="${CENTER}" y="200" font-size="110" fill="#F2F0EB">TAP</text>`, 900); finale(v, a); return 700; });
+  if (kind === 'ko') [3, 2, 1].forEach(c => steps.push(() => { fxCount(c); return 650; }));
+  steps.push(() => closingTalk(v));
   steps.push(() => { showVerdict(a, b, v); return 0; });
-  const run = i => { if (i < steps.length && bout) fightTimers.push(setTimeout(() => run(i + 1), steps[i]())); };
+  const run = i => { if (i < steps.length && bout) later(() => run(i + 1), steps[i]()); };
   run(0);
 }
-function newRound(i, R) { $('rndN').textContent = `Round ${i}`; $('rndOf').textContent = `di ${R}`; flash($('rnd'), 'pop'); }
-// Salta: stesso verdetto (con la spinta data fin qui), subito
+function lockControls() {
+  $('hit').disabled = $('dodge').disabled = true; $('tacPick').classList.remove('wait');
+  document.querySelectorAll('#tacPick .tac').forEach(x => { x.disabled = true; });
+}
+function closingTalk(v) {
+  const {a, b, S} = bout;
+  if (v.draw) return talk('draw', a, b, true);
+  return talk({dec: 'dec', sub: 'sub', rtd: 'rtd', doc: 'doc'}[S.end.kind] || 'ko', v.winner, v.loser, true);
+}
+// Salta (e prefers-reduced-motion): il resto del match si simula subito, tattiche automatiche
+function endNow() {
+  const {a, b, S} = bout, v = bout.v || (bout.v = verdictOf(S, a, b));
+  fightTimers.forEach(clearTimeout); fightTimers = [];
+  bout.locked = true; $('rcard').innerHTML = '';
+  hudFrom(S); syncTable(); showTacs(S); newRound(S.end.r, S.rules.rounds); finale(v, a);
+  closingTalk(v); showVerdict(a, b, v);
+}
 function skipFight() {
   if (!bout) return;
-  const {a, b, v} = bout;
-  fightTimers.forEach(clearTimeout); fightTimers = [];
-  if (!bout.locked) settle(v, a, b, bout.push);
-  newRound(...bout.last); bout.closing(); showVerdict(a, b, v);
+  if (!bout.S.end) finishRest(bout.S, Math.random);
+  endNow();
+}
+function newRound(i, R) { $('rndN').textContent = `Round ${i}`; $('rndOf').textContent = `di ${R}`; flash($('rnd'), 'pop'); }
+
+/* --- il verdetto esce dal motore --- */
+const clock = s => `${Math.floor(s / 60)}:${String(Math.round(s) % 60).padStart(2, '0')}`;
+function howOf(e, R, w) {
+  const box = R.name === 'Boxe', mma = w.sport === 'MMA';
+  if (e.kind === 'dec') return e.how;
+  if (e.kind === 'sub') return `Sottomissione (${weighted(SUBS, [4, 3, 3, 2, 1, 1])})`;
+  if (e.kind === 'doc') return box ? 'KO tecnico (stop medico)' : 'TKO (stop medico)';
+  if (e.kind === 'rtd') return box ? weighted(['Abbandono all\'angolo', 'KO tecnico (getto della spugna)'], [1, 1]) : 'TKO (l\'angolo ferma)';
+  if (e.kind === 'tko') return box ? 'KO tecnico (l\'arbitro ferma)' : mma ? weighted(['TKO (ground and pound)', 'TKO (pugni)'], [1, 1]) : 'TKO (pugni)';
+  return box || !mma ? 'KO' : weighted(['KO (pugni)', 'KO (ginocchiata)', 'KO (calcio alla testa)'], [5, 2, 1]);
+}
+function verdictOf(S, a, b) {
+  const e = S.end, base = {rules: S.rules, pA: bout.cal.target, cards: S.tot.map(c => [...c]), push: bout.push, round: e.r};
+  if (e.kind === 'draw') return {...base, draw: true, how: e.how};
+  const winner = e.w === 'A' ? a : b;
+  return {...base, winner, loser: winner === a ? b : a, how: howOf(e, S.rules, winner), time: e.kind === 'dec' ? null : clock(e.t), kd: S[oth(e.w)].kd};
 }
 
-// il tuo angolo è il rosso (A): ogni azione vale +0,5% sulla sua probabilità, fino a +10%
+/* --- cartellino: i tre giudici a fine round nell'arena, la tabella che cresce sotto --- */
+function roundCard(rec) {
+  // al centro, tra le due foto: a fine round lì non ci sono colpi né oggetti (gong in alto, ghiaccio e sgabello in basso)
+  $('rcard').innerHTML = `<g class="rc"><text x="${CENTER}" y="182" fill="#F2F0EB" font-size="20" paint-order="stroke" stroke="#0B0B0B" stroke-width="6">ROUND ${rec.r} · GIUDICI</text>` + rec.cards.map(([x, y], i) =>
+    `<g transform="translate(${CENTER + (i - 1) * 68} 222)"><rect x="-30" y="-17" width="60" height="34" fill="#F2F0EB" stroke="#0B0B0B" stroke-width="2"/>
+      <text x="-14" y="1" font-size="22" fill="#E10600">${x}</text><text x="0" y="1" font-size="18" fill="#0B0B0B">-</text><text x="14" y="1" font-size="22" fill="#0B0B0B">${y}</text></g>`).join('') + '</g>';
+}
+const STOP_TXT = {ko: 'KO', tko: 'KO tecnico', sub: 'Sottomissione', doc: 'Stop medico'};
+function syncTable() {
+  const {a, b, S} = bout, last = S.rounds.length - 1, nm = [surname(a), surname(b)];
+  const cell = ([x, y]) => `<span class="ra ${x > y ? 'w' : ''}">${x}</span>-<span class="${y > x ? 'w' : ''}">${y}</span>`;
+  const notes = (r, i) => {
+    const prev = S.rounds[i - 1], out = [];
+    if (r.kd[0]) out.push(`${esc(nm[1])} a terra${r.kd[0] > 1 ? ' ×' + r.kd[0] : ''}`);
+    if (r.kd[1]) out.push(`${esc(nm[0])} a terra${r.kd[1] > 1 ? ' ×' + r.kd[1] : ''}`);
+    [0, 1].forEach(k => { if (r.cut[k] > (prev ? prev.cut[k] : 0)) out.push(`taglio ${esc(nm[k])}`); });
+    return out.join(' · ');
+  };
+  $('scBody').innerHTML = S.rounds.map((r, i) => `<tr class="${i === last ? 'new' : ''}"><th>${r.r}</th><td class="t"><span class="ra">${TAC[r.tA].short}</span> · ${TAC[r.tB].short}</td>`
+    + (r.cards ? r.cards.map(c => `<td>${cell(c)}</td>`).join('') : `<td colspan="3">${STOP_TXT[r.stop]}</td>`) + `<td class="n">${notes(r, i)}</td></tr>`).join('');
+  $('scFoot').innerHTML = `<tr><th>Tot.</th><td></td>${S.tot.map(c => `<td>${cell(c)}</td>`).join('')}<td></td></tr>`;
+  $('scoreWrap').hidden = false;
+}
+
+// il tuo angolo è il rosso (A): ogni azione vale +0,5% di spinta, fino a +10% (nel motore: vantaggio negli scambi dei round seguenti)
 function push(kind) {
   if (!bout || bout.locked || bout.push >= 0.10) return;
-  bout.push = Math.min(0.10, bout.push + 0.005);
+  bout.push = bout.S.push = Math.min(0.10, bout.push + 0.005);
   $('push').textContent = `+${(bout.push * 100).toFixed(1).replace('.0', '')}%`;
   // l'effetto grande al massimo uno ogni 1,2 s: niente raffiche anche se premi di continuo
   const big = Date.now() - (bout.lastFx || 0) > 1200;
   if (big) bout.lastFx = Date.now();
-  if (kind === 'hit') { bout.hp.B = Math.max(20, bout.hp.B - 1.2); hpSet('B', bout.hp.B); if (big) hitFx('A'); else flash($('hpBarB'), 'hurt'); }
-  else { bout.dodge = true; if (big) dodgeFx('A'); }   // il prossimo colpo di B va a vuoto
+  if (kind === 'hit') { if (big) hitFx('A'); else flash($('hpBarB'), 'hurt'); }
+  else { bout.dodge = true; if (big) dodgeFx('A'); }   // il prossimo colpo di B va quasi a vuoto
   talk(kind === 'hit' ? 'hit' : 'dodge', bout.a, bout.b);
 }
 $('hit').onclick = () => push('hit');
 $('dodge').onclick = () => push('dodge');
 $('skip').onclick = skipFight;
+document.querySelectorAll('#tacPick .tac').forEach(x => { x.onclick = () => chooseTac(x.dataset.t); });
 document.addEventListener('keydown', e => {
   if (!bout || e.repeat || e.target.closest('input,select,textarea')) return;
   if (e.code === 'Space' && !e.target.closest('button,a')) { e.preventDefault(); push('hit'); }   // su un bottone lo spazio lo clicca già
   if (e.code === 'KeyS') push('dodge');
+  const n = '1234'.indexOf(e.key);
+  if (n >= 0) chooseTac(Object.keys(TAC)[n]);
 });
+
+/* --- simula 1000 volte: stesso motore, tattiche automatiche, nessuna animazione --- */
+let simLast = null;
+function sim1000() {
+  const a = byId($('f1').value), b = byId($('f2').value), key = a.id + '|' + b.id, cal = simSetup(a, b), N = 1000, sec = $('simSec');
+  $('sim1000').disabled = true; sec.hidden = false;
+  sec.innerHTML = `<h4>Simulazione in corso <em id="simProg">0 su ${N}</em></h4>`;
+  simMany(cal, N, d => { const p = $('simProg'); if (p) p.textContent = `${d} su ${N}`; }, res => {
+    $('sim1000').disabled = false;
+    if (key !== $('f1').value + '|' + $('f2').value) return;   // nel frattempo hai cambiato fighter
+    simLast = {res, target: cal.target, gap: cal.gap, base: cal.base};
+    sec.innerHTML = simHtml(res, a, b, cal);
+  });
+}
+function simHtml(r, a, b, cal) {
+  const N = r.n, A = esc(surname(a)), B = esc(surname(b)), R = cal.rules.rounds;
+  const won = s => r[s].ko + r[s].sub + r[s].dec + r[s].doc, wA = won('A'), wB = won('B');
+  const pc = x => `${(x / N * 100).toFixed(1).replace('.', ',')}%`;
+  const MET = [['ko', 'KO/TKO'], ['sub', 'Sottomissione'], ['dec', 'Decisione'], ['doc', 'Stop medico']];
+  const mx = Math.max(1, ...MET.flatMap(([k]) => [r.A[k], r.B[k]]));
+  const rows = s => MET.map(([k, lb]) => `<div class="mrow ${s === 'A' ? 'top' : ''}"><span class="lb">${lb}</span><span class="tr"><i style="width:${r[s][k] / mx * 100}%"></i></span><span class="v">${r[s][k]}</span></div>`).join('');
+  const hm = Math.max(1, ...r.hist), W = 60 * (R + 1);
+  const bars = r.hist.map((n, i) => { const h = n / hm * 150, x = i * 60 + 10;
+    return `<rect class="bar" x="${x}" y="${190 - h}" width="40" height="${h}" fill="${i === R ? '#E10600' : 'url(#hatch)'}" stroke="#F2F0EB" stroke-width="3"/>
+      <text x="${x + 20}" y="${180 - h}" fill="#F2F0EB" font-size="17">${n}</text><text x="${x + 20}" y="216" fill="#8C8A86" font-size="${i === R ? 14 : 17}">${i === R ? 'PUNTI' : i + 1}</text>`; }).join('');
+  return `<h4>1000 match simulati <em>stesso motore, tattiche automatiche</em></h4>
+    <div class="pwin"><div class="names"><span>${A}</span><span>${B}</span></div>
+      <div class="pcts"><span>${pc(wA)}</span><span>${pc(wB)}</span></div>
+      <div class="mirror" role="img" aria-label="${A} ${pc(wA)}, ${B} ${pc(wB)}"><div class="l"><i style="width:${wA / N * 100}%"></i></div><div class="r"><i style="width:${wB / N * 100}%"></i></div></div></div>
+    <p class="simnote">Pareggi: ${r.draw} (${pc(r.draw)}). Stima di partenza ${A} ${pctTxt(cal.target)}: sui match con un vincitore qui vince il ${((wA / (wA + wB || 1)) * 100).toFixed(1).replace('.', ',')}%.</p>
+    <div class="simgrid"><div><div class="pk">${A} · ${wA} vittorie</div>${rows('A')}</div><div><div class="pk">${B} · ${wB} vittorie</div>${rows('B')}</div></div>
+    <div class="pk" style="margin-top:30px">In che round finisce</div>
+    <svg class="simhist" viewBox="0 -6 ${W} 230" style="max-width:${Math.round(W * 1.15)}px" role="img" aria-label="Round della fine: ${r.hist.map((n, i) => `${i === R ? 'ai punti' : 'round ' + (i + 1)} ${n}`).join(', ')}">${bars}</svg>`;
+}
+$('sim1000').onclick = sim1000;
 
 /* --- telecronaca: una riga per evento. {f} = chi fa l'azione, {o} = l'altro, {n} = round --- */
 const CALL = {
@@ -857,6 +1064,12 @@ const CALL = {
     'Fine. {f} sembra convinto, adesso parlano i giudici.', 'Gong finale. La cintura aspetta sul tavolo dei giudici.'],
   draw: ['Gong finale, nessuno dei due ha ceduto. Cartellini.', 'Al limite, pari in tutto. Anche negli sguardi.'],
   nc: ['Colpo accidentale: {o} non può continuare. L\'arbitro ferma tutto.', 'Si ferma qui, nessuno vince: colpo involontario su {o}.'],
+  cut: ['Taglio sopra l\'occhio di {o}: lo ha aperto {f}.', 'Sangue sul viso di {o}. {f} adesso mira lì.', '{o} ha un taglio sullo zigomo, l\'angolo prepara il tampone.',
+    'Il sopracciglio di {o} si apre: colpo pieno di {f}.'],
+  cut3: ['Il taglio di {o} peggiora: l\'arbitro chiama il medico a guardare.', 'Il medico guarda il taglio di {o}. Per ora si continua.',
+    '{f} lavora sul taglio: {o} non vede bene da quel lato.'],
+  doc: ['Il medico guarda il taglio di {o} e scuote la testa: stop. Vince {f}.', 'Stop medico: il taglio di {o} è troppo profondo. Vince {f}.',
+    'L\'arbitro ascolta il medico e chiude: {o} non può continuare col taglio. Vince {f}.'],
 };
 // per fighter: compaiono solo quando combatte lui. hurt = quando lo colpiscono, down = quando va al tappeto, win = quando chiude il match
 const CALL_BY = {
@@ -942,49 +1155,12 @@ const ROUNDS = 12;
 // regole: due pugili = boxe (12 round da 3'); se c'è almeno un fighter MMA = regole MMA (5 round da 5')
 const rulesOf = (a, b) => (a.sport === 'Boxe' && b.sport === 'Boxe' ? {name: 'Boxe', rounds: 12, len: 180} : {name: 'MMA', rounds: 5, len: 300});
 const weighted = (xs, ws) => { let r = Math.random() * ws.reduce((s, w) => s + w, 0); return xs.find((x, i) => (r -= ws[i]) < 0) || xs[0]; };
-const KO_BOXE = ['KO', 'KO tecnico (l\'arbitro ferma)', 'KO tecnico (getto della spugna)', 'Abbandono all\'angolo'];
-const KO_MMA = ['KO (pugni)', 'KO (ginocchiata)', 'TKO (ground and pound)', 'TKO (stop medico)', 'KO (calcio alla testa)'];
 const SUBS = ['strangolamento da dietro', 'ghigliottina', 'leva al braccio', 'triangolo', 'kimura', 'd\'arce'];
-const DECS = ['Decisione unanime', 'Decisione divisa', 'Decisione di maggioranza'];
-
-function pickMethod(f, rules) {
-  const canSub = rules.name === 'MMA' && f.sub > 0;
-  const kind = weighted(['ko', 'sub', 'dec', 'dq'], [f.ko + 1, canSub ? f.sub + 1 : 0, f.dec + 1, 0.4]);
-  const round = 1 + Math.floor(Math.random() * rules.rounds);
-  const clock = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
-  const time = clock(10 + Math.floor(Math.random() * (rules.len - 10)));
-  if (kind === 'dec') return {how: weighted(DECS, [6, 3, 1]), round: rules.rounds, time: null, kd: Math.floor(Math.random() * 2)};
-  if (kind === 'dq') return {how: 'Squalifica (colpo dopo il gong)', round, time, kd: 0};
-  if (kind === 'sub') return {how: `Sottomissione (${weighted(SUBS, [4, 3, 3, 2, 1, 1])})`, round, time, kd: 0};
-  return {how: weighted(rules.name === 'Boxe' ? KO_BOXE : KO_MMA, [5, 4, 2, 1, 1]), round, time, kd: Math.floor(Math.random() * 4)};
-}
 
 const LINES_WIN = ['{w} chiude i conti.', '{l} non arriva al gong.', 'Il palazzetto è in piedi.', '{w} non lascia respirare {l}.', 'Lezione di {w}.'];
 const LINES_UPSET = ['Nessuno se l\'aspettava.', 'La sorpresa dell\'anno.', 'Le quote dicevano il contrario.'];
 const LINES_DRAW = ['I giudici non si mettono d\'accordo.', 'Serve la rivincita.', 'Nessuno dei due cede un centimetro.'];
 const fillLine = (t, w, l) => t.replace(/\{w\}/g, surname(w)).replace(/\{l\}/g, surname(l));
-
-function rollVerdict(a, b) {
-  const pA = winChance(a, b), rules = rulesOf(a, b);
-  const drawChance = Math.abs(pA - 0.5) < 0.1 ? 0.10 : 0.03;
-  const r = Math.random();
-  if (r < 0.01) return {nc: true, pA, rules, round: 1 + Math.floor(Math.random() * 2)};   // raro: no contest
-  if (r < 0.01 + drawChance) return {draw: true, pA, rules, how: weighted(['Pareggio (decisione divisa)', 'Pareggio di maggioranza', 'Pareggio unanime'], [5, 3, 1])};
-  const u = Math.random(), winner = u < pA ? a : b;               // u resta: a fine match si riconfronta con pA + spinta
-  return {winner, loser: winner === a ? b : a, pA, u, rules, ...pickMethod(winner, rules)};
-}
-
-// la spinta del giocatore (0..+10%) sposta winChance di A; stesso u, quindi cambia l'esito solo se era in bilico
-function settle(v, a, b, push) {
-  v.push = push;
-  if (!v.winner) return v;
-  const w = v.u < Math.min(0.97, v.pA + push) ? a : b;
-  if (w !== v.winner) {
-    v.winner = w; v.loser = w === a ? b : a;
-    if (/^Sottomissione/.test(v.how) && !w.sub) v.how = weighted(KO_MMA, [5, 4, 2, 1, 1]);   // chi non ha mai sottomesso vince prima del limite in piedi
-  }
-  return v;
-}
 
 // foto: un momento del tipo giusto se c'è, altrimenti un ritratto, altrimenti il ritaglio
 const randomOf = xs => xs[Math.floor(Math.random() * xs.length)];
@@ -999,7 +1175,7 @@ const vcard = (f, type, label, line, dir) => `<figure class="vcard ${type}">${ph
 function centerArena() { const w = $('arena').parentElement; w.scrollLeft = (w.scrollWidth - w.clientWidth) / 2; }
 function showVerdict(a, b, v) {
   centerArena();
-  bout = null; $('moves').hidden = true; $('arena').classList.remove('fighting');
+  bout = null; $('moves').hidden = true; $('tacPick').hidden = true; $('rcard').innerHTML = ''; $('arena').classList.remove('fighting');
   const pct = x => `${Math.round(x * 100)}%`;
   if (v.nc) {
     $('vTitle').innerHTML = `No contest<em>Colpo accidentale al round ${v.round} · regole ${v.rules.name}</em>`;
@@ -1025,7 +1201,7 @@ function showVerdict(a, b, v) {
     $('cut' + sd).style.transform = `translate(${push[sd]}px,0px) ${size[t]}`;
     $('cut' + sd).style.opacity = t === 'L' ? .55 : 1;
   });
-  $('vOdds').innerHTML = `<b>${pct(v.pA)} · ${pct(1 - v.pA)}</b>Le possibilità prima del match: ${esc(surname(a))} contro ${esc(surname(b))}${v.push ? `<br>Spinta dal tuo angolo per ${esc(surname(a))}: +${Math.round(v.push * 100)}%` : ''}`;
+  $('vOdds').innerHTML = `<b>${pct(v.pA)} · ${pct(1 - v.pA)}</b>Le possibilità prima del match: ${esc(surname(a))} contro ${esc(surname(b))}. Il verdetto è uscito dal match giocato round per round${v.push ? `<br>Spinta dal tuo angolo per ${esc(surname(a))}: +${Math.round(v.push * 100)}%` : ''}`;
   $('verdictSec').hidden = false;
   $('arenaSec').scrollIntoView({behavior: 'smooth', block: 'start'});   // si guarda l'arena: lì cambiano le foto
 }
@@ -1100,7 +1276,7 @@ function renderPred(a, b) {
   const best = M.reduce((x, y) => (P.method[y[0]] > P.method[x[0]] ? y : x))[0];
   $('pMet').innerHTML = M.map(([k, lb, ic]) => `<div class="mrow ${k === best ? 'top' : ''}"><span class="lb">${icon(ic)}${lb}</span>
     <span class="tr"><i style="width:${P.method[k] * 100}%"></i></span><span class="v">${pctTxt(P.method[k])}</span></div>`).join('');
-  $('pArena').textContent = `Nell'arena le possibilità mescolano metà albero e metà statistiche di carriera: ${A} ${pctTxt(winChance(a, b))}, ${B} ${pctTxt(1 - winChance(a, b))}.`;
+  $('pArena').textContent = `Nell'arena il match si gioca round per round, con un motore tarato su metà albero e metà statistiche di carriera: su tanti match ${A} vince circa il ${pctTxt(winChance(a, b))}, ${B} il ${pctTxt(1 - winChance(a, b))}.`;
   $('pPathM').innerHTML = P.met.path.map(s => `<li>${esc(nodeQuestion(s, a, b))} <b>${s.right ? 'Sì' : 'No'}</b> (qui: ${esc(nodeValue(s))})</li>`).join('')
     + `<li>Risposta: ${M.map(([k, lb]) => `${lb} ${pctTxt(P.method[k])}`).join(' · ')}</li>`;
 }
@@ -1113,8 +1289,9 @@ function render() {
   $('mq').innerHTML = marquee(a, b);
   renderArena(a, b);
   $('common').innerHTML = commonHtml(a, b);
-  $('verdictSec').hidden = true;
+  $('verdictSec').hidden = true; $('simSec').hidden = true;
   $('board').innerHTML = boardHtml(a, b);
+  setTimeout(() => simSetup(a, b), 400);   // taratura del motore (~0,3 s) prima del click, non durante
 }
 
 $('key').innerHTML = ELEMENTS.map(e => `<span style="color:${e.text}">${icon(e.ic)}${e.label} · ${e.what}</span>`).join('');

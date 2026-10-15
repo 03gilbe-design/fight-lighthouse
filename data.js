@@ -341,7 +341,8 @@ document.addEventListener('click', e => { const r = e.target.closest('.spoiler .
 // ponytail: copertina che si alterna senza toccare le pagine — sceglie una foto a ogni visita (fissa per la sessione)
 // e riscrive gli src img/<id>.webp (e _ghost/_glow) appena compaiono. Se le varianti crescono, meglio un campo f.img usato dalle pagine.
 (() => {
-  const ALT = {debuttante: ['debuttante', 'debuttante_b', 'debuttante_b', 'debuttante_c', 'debuttante_c', 'debuttante_d', 'debuttante_d']};   // la vecchia esce 1 volta su 7
+  const ALT = {debuttante: ['debuttante', 'debuttante_b', 'debuttante_b', 'debuttante_c', 'debuttante_c', 'debuttante_d', 'debuttante_d'],   // la vecchia esce 1 volta su 7
+               tyson: ['tyson', 'tyson_b', 'tyson_c', 'tyson_d']};   // tyson_d e' specchiata per guardare a sinistra (look 'L')
   const pick = {};
   for (const id in ALT) {
     let k; try { k = sessionStorage.getItem('cover_' + id); } catch (e) {}

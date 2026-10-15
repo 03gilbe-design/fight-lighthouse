@@ -75,21 +75,28 @@
   }
 
   /* ---------- home: FIGHT, il match del giorno ---------- */
+  // a ogni visita cambia coppia, parola e stile (rosso / crema a retino / rosso-nero)
+  const PAIRS = [['ali', 'tyson'], ['khabib', 'topuria'], ['floyd', 'ali'], ['fedor', 'tyson'], ['khabib', 'fedor'], ['floyd', 'tyson'], ['topuria', 'floyd'], ['vlad', 'debuttante']];
+  const WORDS = ['FIGHT', 'ULTRA', 'SFIDA', 'RING', 'GUERRA'];
+  const pick = L => L[Math.floor(Math.random() * L.length)];
   function home() {
-    const a = byId('ali'), b = byId('tyson'); if (!a || !b) return;
+    const [ia, ib] = pick(PAIRS), a = byId(ia), b = byId(ib); if (!a || !b) return;
+    const W = pick(WORDS), style = pick(['red', 'cream', 'war']);
     const ra = (typeof RECORDS !== 'undefined' && RECORDS[a.id]) || [], rb = new Set(((typeof RECORDS !== 'undefined' && RECORDS[b.id]) || []).map(r => r.opp));
     const common = [...new Set(ra.map(r => r.opp).filter(o => rb.has(o)))];
     const now = new Date(), doy = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 864e5);
     const side = f => mc(f.name, f.nick, `${rec(f)} · ${f.ko} KO`, `${f.cm} cm · ${f.place}`, `picco OpenSkill ${peak(f)}`);
-    const html = words('FIGHT', 1).replace('%FIG%',
-      fig(`img/${a.id}.webp`, {x: '31%', h: '91%', flip: typeof faceTo === 'function' && faceTo(a, 'R')}) +
-      fig(`img/${b.id}.webp`, {x: '69%', h: '91%', flip: typeof faceTo === 'function' && faceTo(b, 'L')})) +
+    const cream = style === 'cream', src = f => (cream && HT.has(f.id) ? `${P}ht_${f.id}.webp` : `img/${f.id}.webp`);
+    const html = (style === 'war' ? '<div class="flp__under"></div>' : '') + words(W, 1).replace('%FIG%',
+      fig(src(a), {x: '31%', h: cream ? '84%' : '91%', cls: cream ? 'dots' : '', flip: typeof faceTo === 'function' && faceTo(a, 'R')}) +
+      fig(src(b), {x: '69%', h: cream ? '84%' : '91%', cls: cream ? 'dots' : '', flip: typeof faceTo === 'function' && faceTo(b, 'L')})) +
       `<div class="flp__top"><span>Il match di oggi · mai successo</span><span>N° ${doy} / ${now.getFullYear()}</span></div>` +
-      `<div class="flp__side">${e(a.nick)} contro ${e(b.nick)} · ${e(a.sport)} · pesi massimi</div>` +
+      `<div class="flp__side">${e(a.nick)} contro ${e(b.nick)} · ${e(a.sport)}${a.sport !== b.sport ? ' contro ' + e(b.sport) : ''}</div>` +
       `<div class="flp__side r">Fight Lighthouse® · rating OpenSkill su 148.000 incontri</div>` +
       `<div class="flp__bot">${side(a)}${mc('Avversari in comune', common.length ? common.join(', ') : 'nessuno', `${ra.length} + ${rb.size} match registrati`)}` +
       `<div class="flp__mc hide-s">${pixel('FL', 16, '')}<br>${barcode(a.id + b.id)}</div>${side(b)}</div>` + marks();
-    const s = mount(html, 'flp--home', ['#roster', '#oggi'], `Poster: ${a.name} contro ${b.name}`);
+    const cls = {red: 'flp--home', cream: 'flp--home flp--cream', war: 'flp--home flp--war'}[style];
+    const s = mount(html, cls, ['#roster', '#oggi'], `Poster: ${a.name} contro ${b.name}`, style === 'red' ? '' : '--wt:4%;--hk:.5');
     if (s) s.querySelector('.flp__bot .flp__px').style.width = '112px';
   }
 
