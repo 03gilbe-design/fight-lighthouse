@@ -375,6 +375,17 @@ body{animation:pagein .35s ease-out}
   .simgrid .mrow{grid-template-columns:1fr 56px}
 }
 @media (prefers-reduced-motion:reduce){.tacpick.wait .tac,.sc tr.new,#arena .rc,.gas i{animation:none;transition:none}}
+/* precedenti veri */
+.h2h{margin:18px 0 26px}
+.h2h-none{margin:0;font:italic 400 20px/1.3 "Instrument Serif";color:var(--grey)} .h2h-none b{font:400 20px Anton;text-transform:uppercase;color:var(--white);font-style:normal;margin-right:6px}
+.h2h-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;border-bottom:2px solid var(--red);padding-bottom:8px}
+.h2h-head b{font:400 30px/1 Anton;text-transform:uppercase} .h2h-head span{font:600 11px "IBM Plex Mono";letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.h2h-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:14px}
+.h2h-b{display:flex;gap:12px;align-items:center;text-decoration:none;border:1.5px solid #333;padding:10px;background:#111}
+.h2h-b:hover{border-color:var(--red)}
+.h2h-b span{display:flex;flex-direction:column;gap:3px} .h2h-b small{font:600 10px "IBM Plex Mono";letter-spacing:.1em;color:var(--grey)}
+.h2h-b b{font:400 22px/1 Anton;text-transform:uppercase} .h2h-b b.r{color:var(--red)} .h2h-b i{font:italic 400 15px "Instrument Serif";color:var(--grey)}
+.h2h-yt{width:40px;flex:none}
 </style>
 <link rel="stylesheet" href="fx.css">
 </head>
@@ -428,6 +439,7 @@ body{animation:pagein .35s ease-out}
 
 <section class="sec pad" id="predSec">
   <div class="sechead"><h3>Come andrà <em>il sacco risponde</em></h3><p>Un albero di decisione allenato su 118.000 match fino al 2018: una domanda alla volta sui numeri dei due, finché resta una risposta sola. Ognuno sale sul ring com'era al suo ultimo incontro.</p></div>
+  <div class="h2h" id="pH2H"></div>
   <div class="pred">
     <div class="pchain">
       <svg class="bag" viewBox="0 0 200 300" aria-hidden="true"><g id="bagG"></g></svg>
@@ -1262,7 +1274,29 @@ const BAG = (() => {
     <text x="100" y="210" text-anchor="middle" fill="#F2F0EB" font-family="Anton" font-size="34" letter-spacing="2">FL</text></g>`;
 })();
 const pctTxt = x => `${Math.round(x * 100)}%`;
+// precedenti veri: si sono già affrontati? (record curati o storico del database, cercando il nome dell'altro)
+function headToHead(a, b) {
+  const norm = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z ]/g, ' ').replace(/\s+/g, ' ').trim();
+  const bouts = f => (typeof RECORDS !== 'undefined' && RECORDS[f.id]) || f.history || [];
+  const same = (opp, f) => { const o = norm(opp), n = norm(f.name), s2 = norm(surname(f)); return o === n || (o.endsWith(' ' + s2) && o[0] === n[0]); };
+  const out = bouts(a).filter(h => same(h.opp, b)).map(h => ({f: a, h, winA: h.res === 'W' ? 1 : h.res === 'L' ? 0 : null}));
+  if (!out.length) bouts(b).filter(h => same(h.opp, a)).forEach(h => out.push({f: b, h, winA: h.res === 'W' ? 0 : h.res === 'L' ? 1 : null}));
+  return out;
+}
+function renderH2H(a, b) {
+  const L = headToHead(a, b), A = surname(a), B = surname(b);
+  if (!L.length) { $('pH2H').innerHTML = `<p class="h2h-none"><b>Mai affrontati.</b> ${esc(A)} contro ${esc(B)} è un match di fantasia: qui sotto il pronostico.</p>`; return; }
+  const wa = L.filter(x => x.winA === 1).length, wb = L.filter(x => x.winA === 0).length, dr = L.length - wa - wb;
+  $('pH2H').innerHTML = `<div class="h2h-head"><b>Si sono già affrontati</b><span>${L.length} ${L.length > 1 ? 'volte' : 'volta'} · ${esc(A)} ${wa} – ${wb} ${esc(B)}${dr ? ` · ${dr} pari/NC` : ''}</span></div>
+    <div class="h2h-list">${L.map(({f, h, winA}) => {
+      const th = typeof ytThumb === 'function' ? ytThumb(f, h) : '', url = typeof videoUrlReal === 'function' ? videoUrlReal(f, h) : videoUrl(f, h);
+      const who = winA === null ? 'Pari / no contest' : `Vince ${esc(winA ? A : B)}`;
+      return `<a class="h2h-b" href="${url}" target="_blank" rel="noopener noreferrer">${th || `<img class="h2h-yt" src="img/youtube.svg" alt="">`}
+        <span><small>${esc(h.date || '')}${h.event ? ' · ' + esc(h.event) : ''}</small><b class="${winA === 1 ? 'r' : ''}">${who}</b><i>${esc(h.method || '')}</i></span></a>`; }).join('')}</div>`;
+}
+
 function renderPred(a, b) {
+  renderH2H(a, b);
   const P = predictFight(a, b), A = surname(a), B = surname(b), pB = 1 - P.pA;
   $('bagG').innerHTML = BAG;
   $('pPath').innerHTML = P.win.path.map((s, i) => `<li style="--i:${i}"><span class="ring"></span><div class="q"><p>${esc(nodeQuestion(s, a, b))}</p>

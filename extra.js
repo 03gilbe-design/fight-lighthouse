@@ -447,7 +447,7 @@ function initRandom() {
     const now = new URLSearchParams(location.search).get('f'), pool = FIGHTERS.filter(f => f.id !== now);
     location.href = `carriera.html?f=${pool[Math.floor(Math.random() * pool.length)].id}`;
   });
-  links.insertBefore(a, links.querySelector('.spoilerbtn, select, label'));
+  links.insertBefore(a, [...links.children].find(c => c.matches('.spoilerbtn, select, label')) || null);   // solo figli diretti
 }
 
 // 10. codice Konami: timbro KO
