@@ -1,3 +1,9 @@
+// pagina già vista (stessa pagina e stesso fighter): niente animazioni d'entrata la seconda volta. L'arena del Cartellone resta animata.
+const SEEN = (() => {
+  const k = 'fl_seen:' + location.pathname.split('/').pop() + location.search;
+  try { const v = localStorage.getItem(k) === '1'; localStorage.setItem(k, '1'); return v; } catch (e) { return false; }
+})();
+
 // Funzioni aggiunte: motivazioni del rating (carriera), avversari suggeriti (cartellone),
 // eventi raggruppati (eventi.html), scorciatoia "/" ed Esc. Si appoggia a data.js senza toccarlo.
 
@@ -210,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ================= MOVIMENTO E CLIC IN PIÙ (stile in fx.css) =================
-const CALM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CALM = matchMedia('(prefers-reduced-motion: reduce)').matches || SEEN;
 const FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const pageF = () => { const q = new URLSearchParams(location.search); return byId(q.get('f') || q.get('db')) || byId('topuria'); };
 if (!CALM) document.documentElement.classList.add('fx');
@@ -381,7 +387,7 @@ function initRoster() {
   const grid = document.getElementById('rosterGrid');
   if (!grid) return;
   const cards = [...grid.querySelectorAll('.card')];
-  if (FINE && !CALM) cards.forEach(c => {
+  if (FINE && !matchMedia('(prefers-reduced-motion: reduce)').matches) cards.forEach(c => {
     c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(), dx = (e.clientX - r.left) / r.width - .5, dy = (e.clientY - r.top) / r.height - .5;
       c.style.transform = `perspective(900px) rotateY(${dx * 7}deg) rotateX(${-dy * 6}deg) translateZ(0)`; });
     c.addEventListener('pointerleave', () => { c.style.transform = ''; });
@@ -485,7 +491,7 @@ document.body.insertAdjacentHTML('beforeend', `<svg width="0" height="0" style="
 /* ---------- MONTAGNA: la carriera si disegna quando entra nello schermo (e a ogni cambio di confronto) ---------- */
 (() => {
   const svg = document.querySelector('#mountSec svg.chart');
-  if (!svg || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!svg || SEEN || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   let seen = false, busy = false;
   const draw = () => {
     busy = true;
