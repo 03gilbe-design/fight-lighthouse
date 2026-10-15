@@ -199,3 +199,20 @@ html, body { overflow-x: clip; }
   nav.navm.open .navtoggle { border-color: #E10600; color: #E10600; }
   .hero h1 { line-height: .98 !important; }
 }
+
+/* ================= patina: le foto non sono più in bianco e nero pieno =================
+   resta il ~30% del colore vero + un velo grigio-caldo uguale per tutte (sepia leggero).
+   Al passaggio del mouse: colori pieni. Il rosso del sito resta l'unico colore pieno. */
+:root { --patina-sat: .3; --patina-tint: .22; --patina-con: 1.15;
+  --patina: grayscale(calc(1 - var(--patina-sat))) sepia(var(--patina-tint)) contrast(var(--patina-con)); }
+.moment img, .bimg img, .card .ph img, .step .ph img, a.yt .ytth img.ytimg, .figure .main { filter: var(--patina); }
+.bout .thumb img { filter: var(--patina) drop-shadow(0 10px 16px rgba(0,0,0,.6)) !important; }
+.heroyt img { filter: var(--patina) drop-shadow(0 18px 30px rgba(0,0,0,.7)); }
+.ev li:first-child .ytth.cut img.ytimg { filter: var(--patina) drop-shadow(0 10px 18px rgba(0,0,0,.6)); }
+#mountSec svg.chart image { filter: var(--patina) !important; }
+.moment:hover img, .bimg:hover img, .card:hover .ph img, .step:hover .ph img, a.yt:hover .ytth img.ytimg { filter: none; }
+.figure:hover .main { filter: contrast(1.05); }
+.bout .thumb:hover img { filter: drop-shadow(0 10px 16px rgba(0,0,0,.6)) !important; }
+.heroyt:hover img { filter: drop-shadow(0 18px 30px rgba(0,0,0,.7)); }
+.ev li:first-child a.yt:hover .ytth.cut img.ytimg { filter: drop-shadow(0 10px 18px rgba(0,0,0,.6)); }
+#mountSec svg.chart image:hover { filter: none !important; }

@@ -105,3 +105,12 @@
 /* crema: la colonna centrale resta vuota, ci passa la figura a retino */
 .flp--cream .flp__bot{grid-template-columns:1fr 1fr 1.4fr 1fr 1fr}
 @media (max-width:700px){.flp--cream .flp__bot{grid-template-columns:1fr 1fr}}
+
+/* fasce dipinte (poster.js band): lastra RGB a tutto campo, parola Anton, poi la stessa figura ritagliata davanti */
+.flp--photo{--H:clamp(560px,62vw,900px);--wt:5%;--hk:.5}
+.flp__pl,.flp__pf{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%;pointer-events:none;max-width:none}
+.flp__pl{z-index:0}.flp__pf{z-index:2}
+.flp--photo .flp__w{fill:var(--red)}
+.flp--photo .flp__top,.flp--photo .flp__side{color:#F2F0EB;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.flp--photo .flp__x.tl,.flp--photo .flp__x.tr,.flp--photo .flp__x.ml,.flp--photo .flp__x.mr{color:#F2F0EB}
+@media (max-width:700px){.flp--photo{--hk:.36}}

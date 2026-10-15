@@ -1,0 +1,9 @@
+Clip animate scontornate (WebP animato con alpha + PNG statico del primo fotogramma)
+Generate da .claude/jobs/027bbcf2/tmp/anim_work/build_anim.py (scontorno BiRefNet su Kaggle: cacajuete/fl-anim-cut)
+
+ali_liston        Giphy sticker "Muhammad Ali Fight Sticker by imoji"     https://giphy.com/stickers/xUA7bk6o1u4PHJF8oE
+topuria_occhiali  Giphy sticker "Sport Sunglasses Sticker by UFC"         https://giphy.com/stickers/qHvPs3VGqPbhuuUno3
+tyson_rooney      YouTube LyYpDUfA37M "Mike Tyson - Head Movement Drills"  31.7-34.1 s
+khabib_conor      YouTube dGSChUGhrNU "UFC 229: Khabib vs Conor McGregor"   389.5-391.4 s (barra punteggio ricostruita)
+floyd_canelo      YouTube rFTFsM4yrvc "Floyd Mayweather vs. Canelo Alvarez" 625.0-625.9 s (andata e ritorno)
+fedor_colpitore   YouTube Wh-eqcYR5Ng "Fedor Emelianenko - Punching power"  179.3-180.0 s (andata e ritorno)

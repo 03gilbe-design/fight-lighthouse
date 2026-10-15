@@ -67,7 +67,7 @@
   function mount(html, cls, anchors, label, vars = '') {
     const at = anchors.map(s => document.querySelector(s)).find(Boolean);
     if (!at) return null;
-    let s = document.querySelector('section.flp');
+    let s = document.querySelector('section.flp:not([data-paint])');
     if (!s) { s = document.createElement('section'); at.insertAdjacentElement('beforebegin', s); }
     s.className = 'flp ' + cls; s.setAttribute('aria-label', label); s.setAttribute('style', vars);
     s.innerHTML = html;
@@ -156,7 +156,7 @@
       `<div class="flp__bot"><div class="hide-s"></div><div class="hide-s"></div><div class="hide-s"></div>` +
       mc('Dietro di lui', ...L.slice(1, 4).map((x, i) => `${i + 2}° ${x.f.name} · ${x.v}`)) +
       mc(`${t.nick}`, `${rec(t)} · ${t.ko} KO`, `${t.place}`) + '</div>' + marks('');
-    mount(html, 'flp--cream flp--rank', ['section.sec:nth-of-type(2)', 'section.fights'], `Poster: ${t.name}, primo in classifica`, '--wt:4%;--hk:.5');
+    mount(html, 'flp--cream flp--rank', ['section.fights', 'section.sec:nth-of-type(2)'], `Poster: ${t.name}, primo in classifica`, '--wt:4%;--hk:.5');
   }
 
   /* ---------- eventi: Arbo che sfuma nel rosso, la data della serata più recente ---------- */
@@ -174,6 +174,58 @@
       `<div class="flp__mc hide-s">${barcode(ev.iso + ev.name)}</div>` +
       mc('Dipinto', 'Peter Nicolai Arbo', 'Åsgårdsreien, 1872', 'pubblico dominio') + '</div>' + marks();
     mount(html, 'flp--paint', ['section.sec'], `Poster: ${ev.name}, ${ev.dd}/${ev.mm}/${ev.year}`);
+  }
+
+
+  /* ---------- fasce dipinte: foto vera dei momenti, olio caldo che si sfalda nel rosso (img/paint/make_paint.py) ---------- */
+  // per fighter: le foto pronte, la prima è quella "della scheda"
+  const PAINT = {ali: ['ali_7', 'ali_6'], tyson: ['tyson_6', 'tyson_4'], khabib: ['khabib_4', 'khabib_1'], floyd: ['floyd_4'], fedor: ['fedor_2'],
+    topuria: ['topuria_1', 'topuria_5'], vlad: ['vlad_7'], debuttante: ['debuttante_5']};
+  const TYPE = {W: 'vittoria', L: 'sconfitta', D: 'testa a testa', P: 'fuori dal ring'};
+  const capOf = (f, src) => (f.moments || []).find(m => m.src === src) || {};
+  function band(f, src, W, k, at, where, label, top, bot) {
+    const el = typeof at === 'string' ? document.querySelector(at) : at; if (!el) return;
+    const s = document.createElement('section');
+    s.className = 'flp flp--photo'; s.dataset.paint = src; s.setAttribute('aria-label', label);
+    s.innerHTML = `<img class="flp__pl" src="img/paint/${src}.webp" alt="" decoding="async">` +
+      words(W, k).replace('%FIG%', `<img class="flp__pf" src="img/paint/${src}_fig.webp" alt="" decoding="async">`) +
+      `<div class="flp__top">${top}</div><div class="flp__side">${e(f.name)} · ${e(capOf(f, src).cap || '')}</div>` +
+      `<div class="flp__side r">Fight Lighthouse® · foto vera, ridipinta</div><div class="flp__bot">${bot}</div>` + marks();
+    el.insertAdjacentElement(where, s);
+  }
+  const fotoMc = (f, src) => { const m = capOf(f, src); return mc('La foto', m.cap || '—', TYPE[m.type] || ''); };
+  const ratingMc = f => mc('Rating OpenSkill', `picco ${peak(f)}`, `ultimo ${cur(f)}`);
+
+  function paintHome() {
+    const all = Object.entries(PAINT).flatMap(([id, L]) => L.map(src => [id, src]));
+    let last = ''; try { last = localStorage.getItem('fl_paint') || ''; } catch (x) {}
+    const [id, src] = pick(all.filter(x => x[1] !== last)); const f = byId(id); if (!f) return;
+    try { localStorage.setItem('fl_paint', src); } catch (x) {}
+    const yy = years(f), S = sur(f).toUpperCase();
+    band(f, src, S, [...S].length - 1, '#chivince', 'beforebegin', `Poster: ${f.name}, ${capOf(f, src).cap || ''}`,
+      `<span>Un momento a caso · ${e(f.sport)}</span><span>${e(f.place || '')}</span>`,
+      fotoMc(f, src) + mc('Record', rec(f), `${f.ko} KO · ${f.sub} sub · ${f.dec} dec`) +
+      `<div class="flp__mc hide-s">${barcode(src)}</div>` + mc(f.nick || f.name, `picco OpenSkill ${peak(f)}`, yy ? `carriera ${yy[0]}–${yy[1]}` : ''));
+  }
+
+  function paintScheda() {
+    const id = new URLSearchParams(location.search).get('f'), f = id && byId(id), L = id && PAINT[id];
+    if (!f || !L || !document.querySelector('#ledgerSec:not([hidden])')) return;
+    const R = (typeof RECORDS !== 'undefined' && RECORDS[f.id]) || [], first = R[0], lb = R[R.length - 1], W = rec(f);
+    band(f, L[0], W, W.indexOf('–'), '#ledgerSec', 'beforebegin', `Poster: il registro di ${f.name}`,
+      `<span>Il registro · ${R.length || H(f).length} match</span><span>${e(f.name)}</span>`,
+      fotoMc(f, L[0]) + (first ? mc('Il primo', `contro ${first.opp}`, first.date) : '') +
+      (lb ? mc('L’ultimo', `contro ${lb.opp}`, lb.date) : '') + ratingMc(f));
+  }
+
+  function paintPodio() {
+    const pod = document.getElementById('podium'); if (!pod) return;
+    const T = FIGHTERS.map(f => ({f, v: peak(f)})).sort((a, b) => b.v - a.v).slice(0, 3), t = T[0] && T[0].f;
+    if (!t || !PAINT[t.id]) return;
+    const src = PAINT[t.id][0];
+    band(t, src, 'PODIO', 0, pod.closest('section'), 'afterend', `Poster: il podio, primo ${t.name}`,
+      `<span>Podio per picco OpenSkill</span><span>${e(t.name)} · n°1</span>`,
+      T.map((x, i) => mc(`${i + 1}° · ${x.f.name}`, `picco ${x.v}`, `${rec(x.f)} · ${x.f.sport}`)).join('') + fotoMc(t, src));
   }
 
   /* ---------- parallax leggero sulla figura ---------- */
@@ -198,6 +250,7 @@
     const R = {'index.html': home, 'carriera.html': scheda, 'elementi.html': cartellone, 'classifiche.html': classifica, 'eventi.html': eventi}[page];
     if (!R || typeof FIGHTERS === 'undefined') return;
     R();
+    ({'index.html': paintHome, 'carriera.html': paintScheda, 'classifiche.html': paintPodio}[page] || (() => {}))();
     if (page === 'elementi.html') ['change', 'click'].forEach(t => document.addEventListener(t, () => setTimeout(cartellone, 0)));
     parallax();
   }

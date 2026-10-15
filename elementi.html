@@ -263,6 +263,9 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 .ppath .q small{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;margin-top:8px;font:600 10px/1.3 "IBM Plex Mono";letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
 .ppath .q small b{color:var(--black);background:var(--white);padding:2px 8px;letter-spacing:.1em}
 .ppath .q small b.si{background:var(--red);color:var(--white)}
+.ppath .tvg{display:block;width:100%;max-width:440px;height:auto;margin:0 auto 10px;overflow:visible}
+.pdet .ppath{padding:0;margin-top:0}
+.pdet .ppath li{margin:0}
 .ppath li.leaf .q{background:var(--red);color:var(--red-ink)}
 .ppath li.leaf .q::after{border-width:6px;border-color:var(--white)}
 .ppath li.leaf .q p{font:400 clamp(30px,3.4vw,46px)/1 Anton;text-transform:uppercase;color:var(--white)}
@@ -452,7 +455,7 @@ body{animation:pagein .35s ease-out}
       <div class="pmet" id="pMet"></div>
       <p class="pacc"><b>7 su 10</b>Ci azzecca 7 volte su 10 sui match dal 2019 in poi.</p>
       <p class="pnote" id="pArena"></p>
-      <details class="pdet"><summary>Le domande per il metodo</summary><ol id="pPathM"></ol></details>
+      <details class="pdet"><summary>Le domande per il metodo</summary><ol class="ppath" id="pPathM"></ol></details>
     </div>
   </div>
 </section>
@@ -499,6 +502,7 @@ body{animation:pagein .35s ease-out}
 <script src="data.js"></script>
 <script src="ratings.js"></script>
 <script src="tree.js"></script>
+<script src="treeviz.js"></script>
 <script src="sim.js"></script>
 <script src="yt.js"></script>
 <script src="extra.js"></script>
@@ -1299,8 +1303,7 @@ function renderPred(a, b) {
   renderH2H(a, b);
   const P = predictFight(a, b), A = surname(a), B = surname(b), pB = 1 - P.pA;
   $('bagG').innerHTML = BAG;
-  $('pPath').innerHTML = P.win.path.map((s, i) => `<li style="--i:${i}"><span class="ring"></span><div class="q"><p>${esc(nodeQuestion(s, a, b))}</p>
-      <small><b class="${s.right ? 'si' : ''}">${s.right ? 'Sì' : 'No'}</b><span>qui: ${esc(nodeValue(s))}</span></small></div></li>`).join('')
+  $('pPath').innerHTML = P.win.path.map((s, i) => TV.item(s, a, b, i)).join('')
     + `<li class="leaf" style="--i:${P.win.path.length}"><span class="ring"></span><div class="q"><p>Vince ${esc(P.pA >= .5 ? A : B)} · ${pctTxt(Math.max(P.pA, pB))}</p>
       <small>${P.win.n.toLocaleString('it-IT')} match simili nell'allenamento</small></div></li>`;
   $('pWin').innerHTML = `<div class="names"><span>${esc(A)}</span><span>${esc(B)}</span></div>
@@ -1311,8 +1314,8 @@ function renderPred(a, b) {
   $('pMet').innerHTML = M.map(([k, lb, ic]) => `<div class="mrow ${k === best ? 'top' : ''}"><span class="lb">${icon(ic)}${lb}</span>
     <span class="tr"><i style="width:${P.method[k] * 100}%"></i></span><span class="v">${pctTxt(P.method[k])}</span></div>`).join('');
   $('pArena').textContent = `Nell'arena il match si gioca round per round, con un motore tarato su metà albero e metà statistiche di carriera: su tanti match ${A} vince circa il ${pctTxt(winChance(a, b))}, ${B} il ${pctTxt(1 - winChance(a, b))}.`;
-  $('pPathM').innerHTML = P.met.path.map(s => `<li>${esc(nodeQuestion(s, a, b))} <b>${s.right ? 'Sì' : 'No'}</b> (qui: ${esc(nodeValue(s))})</li>`).join('')
-    + `<li>Risposta: ${M.map(([k, lb]) => `${lb} ${pctTxt(P.method[k])}`).join(' · ')}</li>`;
+  $('pPathM').innerHTML = P.met.path.map((s, i) => TV.item(s, a, b, i)).join('')
+    + `<li class="leaf" style="--i:${P.met.path.length}"><span class="ring"></span><div class="q"><p>${M.find(m => m[0] === best)[1]} · ${pctTxt(P.method[best])}</p><small>${M.map(([k, lb]) => `${lb} ${pctTxt(P.method[k])}`).join(' · ')}</small></div></li>`;
 }
 
 function render() {
@@ -1358,5 +1361,7 @@ render();
 </script>
 <link rel="stylesheet" href="poster.css">
 <script src="poster.js"></script>
+<link rel="stylesheet" href="anim.css">
+<script src="anim.js"></script>
 </body>
 </html>
