@@ -84,7 +84,7 @@ save(halftone(fit(rc, 1100)), 'ht_reni.webp')
 # 3. Gerome, Pollice verso: il gladiatore vincitore sul vinto
 g = Image.open(SRC / 'gerome.jpg').convert('RGB')
 W, H = g.size
-g = g.crop((int(W * .22), int(H * .50), int(W * .58), int(H * .99)))
+g = g.crop((int(W * .22), int(H * .40), int(W * .58), int(H * .99)))
 gc = cut(g); gc = gc.crop(gc.getbbox())
 save(fit(gc, 900), 'gerome_cut.webp')
 save(halftone(fit(gc, 900)), 'ht_gerome.webp')

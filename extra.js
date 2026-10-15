@@ -512,3 +512,14 @@ document.body.insertAdjacentHTML('beforeend', `<svg width="0" height="0" style="
   new IntersectionObserver((es, io) => es.forEach(e => { if (e.isIntersecting && !seen) { seen = true; draw(); io.disconnect(); } }), {threshold: .35}).observe(svg);
   new MutationObserver(() => { if (seen && !busy) draw(); }).observe(svg, {childList: true});
 })();
+
+/* ---------- telefono: il menu si apre con un pulsante ---------- */
+(() => {
+  const nav = document.querySelector('nav');
+  if (!nav || nav.querySelector('.navtoggle')) return;
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'navtoggle'; b.setAttribute('aria-expanded', 'false'); b.textContent = 'Menu';
+  b.onclick = () => { const o = nav.classList.toggle('open'); b.setAttribute('aria-expanded', String(o)); b.textContent = o ? 'Chiudi' : 'Menu'; };
+  nav.classList.add('navm');
+  nav.insertBefore(b, nav.children[1] || null);
+})();

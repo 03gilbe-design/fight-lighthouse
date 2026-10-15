@@ -208,6 +208,44 @@ body{animation:pagein .35s ease-out}
   <div class="watch" id="watch"></div>
 </section>
 
+<!-- ======== CHI VINCE? ======== -->
+<style>
+.cv{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cv .side{min-width:0;display:flex;flex-direction:column;border-top:2px solid var(--white);padding-top:12px}
+.cv .who{display:flex;align-items:baseline;gap:12px;min-height:58px}
+.cv .who b{font:400 52px/.9 AFont1,Anton;color:var(--red)}
+.cv .who span{font:600 10px "IBM Plex Mono";letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
+.cv .who a{min-width:0;font:400 clamp(20px,2.4vw,34px)/1 Anton;text-transform:uppercase;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cv .who a:hover{color:var(--red)}
+.cv .mt{display:block;background:#101010;border:1px solid #222}
+.cv .mt svg{display:block;width:100%;height:auto}
+.cv a.mt:hover{border-color:var(--red)}
+.cv .nums{display:flex;flex-wrap:wrap;gap:4px 16px;min-height:22px;margin-top:8px;font:600 10px "IBM Plex Mono";letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.cv .nums b{font:italic 400 20px "Instrument Serif";letter-spacing:0;color:var(--white);margin-right:4px}
+.cv .pickb{margin-top:12px;background:var(--white);color:var(--black);border:0;font:400 26px Anton;text-transform:uppercase;min-height:56px;cursor:pointer}
+.cv .pickb:hover{background:var(--red);color:var(--red-ink)}
+.cv .pickb:disabled{background:#1b1b1b;color:#555;cursor:default}
+.cv .pickb.mine{background:var(--red);color:var(--red-ink)}
+.cvres{margin-top:22px;border-top:1px solid #333;padding-top:18px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 28px;align-items:center}
+.cvres[hidden]{display:none}
+.cvres h4{margin:0;font:400 clamp(34px,4.4vw,60px)/.9 Anton;text-transform:uppercase}
+.cvres h4 em{display:block;margin-top:8px;font:italic 400 .42em/1.2 "Instrument Serif";text-transform:none;color:var(--grey)}
+.cvres .bar{display:flex;height:14px;margin-top:14px;background:#1d1d1d}
+.cvres .bar i{display:block;height:100%;background:var(--red)} .cvres .bar i+i{background:#8C8A86}
+.cvres .acts{display:flex;flex-wrap:wrap;gap:10px}
+.cvres .acts a,.cvres .acts button{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 18px;font:400 20px Anton;text-transform:uppercase;text-decoration:none;cursor:pointer;border:1.5px solid var(--white);background:transparent;color:var(--white)}
+.cvres .acts a{background:var(--red);border-color:var(--red);color:var(--red-ink)}
+.cvscore{font:600 11px "IBM Plex Mono";letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.cvscore b{font:italic 400 30px "Instrument Serif";letter-spacing:0;color:var(--white);margin:0 6px}
+@media (max-width:700px){.cv{gap:10px}.cv .who{min-height:48px;gap:8px;flex-wrap:wrap}.cv .who b{font-size:40px}.cv .who a{font-size:18px;white-space:normal}.cv .pickb{font-size:20px}.cvres{grid-template-columns:1fr}}
+</style>
+<section class="sec pad" id="chivince">
+  <div class="sechead"><h3>Chi vince? <em>due carriere senza nome</em></h3><p>Due montagne di rating, match dopo match. I nomi restano coperti finché non scegli. Poi parla l'albero di decisione del Cartellone.</p></div>
+  <div class="cv" id="cv"></div>
+  <div class="cvres" id="cvres" hidden aria-live="polite"></div>
+  <p class="cvscore" id="cvscore"></p>
+</section>
+
 <!-- ======== ROSTER ======== -->
 <section class="sec pad" id="oggi">
   <div class="sechead"><h3>Oggi nella storia <em id="oggiData"></em></h3><p id="oggiNote"></p></div>
@@ -228,6 +266,7 @@ body{animation:pagein .35s ease-out}
 <script src="ratings.js"></script>
 <script src="yt.js"></script>
 <script src="extra.js"></script>
+<script src="tree.js"></script>
 <script src="db/index.js"></script>
 <script src="db.js"></script>
 <script>
@@ -308,6 +347,77 @@ $('search').addEventListener('submit', e => {
   if (r) location.href = `carriera.html?f=${r.id}`;
   else $('q').value = '', $('q').placeholder = pickVar("hero.notfound", "Non in archivio: prova Ali, Tyson…");
 });
+
+/* --- Chi vince?: due montagne anonime, scegli, poi nomi + pronostico dell'albero (tree.js) --- */
+const CV_KEY = 'fl_chivince';
+const cvScore = () => { try { return JSON.parse(localStorage.getItem(CV_KEY)) || {ok: 0, tot: 0}; } catch (e) { return {ok: 0, tot: 0}; } };
+const cvSave = s => { try { localStorage.setItem(CV_KEY, JSON.stringify(s)); } catch (e) {} };
+const cvShowScore = () => { const s = cvScore(); $('cvscore').innerHTML = s.tot ? `Il tuo fiuto<b>${s.ok} su ${s.tot}</b>` : ''; };
+let cvPair = null;
+// coppia: carriere lunghe (15+ match), stesso sport, rating non troppo distanti; ogni tanto uno dei nostri
+function cvPick() {
+  const R = fdbRows().filter(r => r.n >= 15 && r.rp >= 1400), rnd = xs => xs[Math.floor(Math.random() * xs.length)];
+  const ours = R.filter(r => r.cur);
+  const a = Math.random() < .2 && ours.length ? rnd(ours) : rnd(R.filter(r => !r.cur));
+  const near = R.filter(r => r.id !== a.id && r.sport === a.sport && r.fem === a.fem && Math.abs(r.rp - a.rp) < 250);   // stesso sport, stessa categoria (uomini/donne)
+  const b = rnd(near.length ? near : R.filter(r => r.id !== a.id && r.fem === a.fem));
+  return Math.random() < .5 ? [a, b] : [b, a];
+}
+// la montagna in piccolo: stessa scala per i due, linea bianca a matita, area, nodi (forma = metodo, rosso = sconfitta)
+function cvMountain(f, lo, hi) {
+  const H = f.history, W = 600, X0 = 14, X1 = 586, YB = 280, YT = 24;
+  const x = i => X0 + i * (X1 - X0) / Math.max(H.length - 1, 1), y = rp => YB - (rp - lo) / (hi - lo) * (YB - YT);
+  const pts = H.map((h, i) => ({h, x: x(i), y: y(h.rp)}));
+  const line = pts.map((p, i) => `${i ? 'L' : 'M'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  const r = H.length > 60 ? 3.5 : 5;
+  const node = ({h, x, y}) => { const k = methodKind(h.method), fill = h.res === 'W' ? '#F2F0EB' : h.res === 'L' ? '#E10600' : 'none', st = h.res === 'W' || h.res === 'L' ? '#0B0B0B' : '#8C8A86';
+    return k === 'sub' ? `<path d="M${x},${y - r * 1.2} L${x + r},${y + r * .8} L${x - r},${y + r * .8} Z" fill="${fill}" stroke="${st}" stroke-width="1.5"/>`
+      : k === 'dec' ? `<rect x="${x - r * .85}" y="${y - r * .85}" width="${r * 1.7}" height="${r * 1.7}" fill="${fill}" stroke="${st}" stroke-width="1.5"/>`
+      : `<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" stroke="${st}" stroke-width="1.5"/>`; };
+  let grid = '';
+  for (let v = Math.ceil(lo / 250) * 250; v < hi; v += 250) grid += `<line x1="${X0}" y1="${y(v)}" x2="${X1}" y2="${y(v)}" stroke="#222" stroke-width="${STROKE_BIG.m}" stroke-dasharray="3 9"/>`;
+  return `<svg viewBox="0 0 ${W} 300" role="img" aria-label="Rating match per match, ${H.length} match">${grid}
+    <path d="${line} L${X1},${YB} L${X0},${YB} Z" fill="#E10600" opacity=".22"/>
+    <path d="${line}" fill="none" stroke="#F2F0EB" stroke-width="${STROKE_BIG.m}" stroke-linejoin="round" filter="url(#pencilL)"/>
+    <line x1="${X0}" y1="${YB}" x2="${X1}" y2="${YB}" stroke="#F2F0EB" stroke-width="${STROKE_BIG.m}"/>${pts.map(node).join('')}</svg>`;
+}
+function cvRound() {
+  $('cvres').hidden = true;
+  const [ra, rb] = cvPick();
+  Promise.all([fdbLoad(ra.id), fdbLoad(rb.id)]).then(([a, b]) => {
+    if (!a || !b || !(a.history || []).length || !(b.history || []).length) return cvRound();
+    cvPair = {a, b, ra, rb};
+    const all = [...a.history, ...b.history].map(h => h.rp), lo = Math.min(...all) - 60, hi = Math.max(...all) + 60;
+    $('cv').innerHTML = [['A', a, ra], ['B', b, rb]].map(([L, f, r]) => `<div class="side">
+      <div class="who"><b>${L}</b><span>${esc(r.sport)}</span></div>
+      <div class="mt" data-l="${L}">${cvMountain(f, lo, hi)}</div>
+      <div class="nums"></div>
+      <button type="button" class="pickb" data-l="${L}">Vince ${L}</button></div>`).join('');
+  });
+}
+function cvAnswer(L) {
+  if (!cvPair || !$('cvres').hidden) return;
+  const {a, b, ra, rb} = cvPair, P = predictFight(a, b), tree = P.pA >= .5 ? 'A' : 'B', hit = L === tree, pct = x => `${Math.round(x * 100)}%`;
+  const s = cvScore(); s.tot++; if (hit) s.ok++; cvSave(s); cvShowScore();
+  const link = f => `carriera.html?f=${f.id}`;
+  document.querySelectorAll('#cv .side').forEach((sd, i) => {
+    const f = i ? b : a, r = i ? rb : ra, H = f.history;
+    sd.querySelector('.who').insertAdjacentHTML('beforeend', `<a href="${link(f)}">${esc(f.name)}</a>`);
+    const mt = sd.querySelector('.mt'), el = Object.assign(document.createElement('a'), {className: 'mt', href: link(f), innerHTML: mt.innerHTML});
+    el.setAttribute('aria-label', `Scheda di ${f.name}`); mt.replaceWith(el);
+    sd.querySelector('.nums').innerHTML = `<span><b>${r.rp}</b>ora</span><span><b>${Math.max(...H.map(h => h.rp))}</b>picco</span><span><b>${esc(r.rec)}</b></span>`;
+    sd.querySelector('.pickb').disabled = true;
+    sd.querySelector('.pickb').classList.toggle('mine', sd.querySelector('.pickb').dataset.l === L);
+  });
+  const W = tree === 'A' ? a : b;
+  $('cvres').innerHTML = `<div><h4>${hit ? 'Ci hai preso' : 'L’albero dice l’altro'}<em>Per l’albero vince ${esc(W.name)}: ${esc(surname(a))} ${pct(P.pA)}, ${esc(surname(b))} ${pct(1 - P.pA)}. Ognuno com’era al suo ultimo match.</em></h4>
+      <div class="bar" role="img" aria-label="${esc(surname(a))} ${pct(P.pA)}, ${esc(surname(b))} ${pct(1 - P.pA)}"><i style="width:${P.pA * 100}%"></i><i style="width:${(1 - P.pA) * 100}%"></i></div></div>
+    <div class="acts"><a href="elementi.html?f1=${a.id}&amp;f2=${b.id}">${icon('vs')}Portali sul Cartellone</a><button type="button" id="cvnext">Un'altra coppia</button></div>`;
+  $('cvres').hidden = false;
+}
+$('cv').addEventListener('click', e => { const b = e.target.closest('.pickb'); if (b && !b.disabled) cvAnswer(b.dataset.l); });
+$('cvres').addEventListener('click', e => { if (e.target.closest('#cvnext')) { cvRound(); $('chivince').scrollIntoView({block: 'start'}); } });
+cvShowScore(); cvRound();
 </script>
 </body>
 </html>

@@ -50,7 +50,7 @@ let FDB_ROWS = null;
 function fdbRows() {
   if (FDB_ROWS) return FDB_ROWS;
   const idx = window.FDB_INDEX || [], seen = new Set();
-  const row = ([id, name, sport, rp, rec, country, n, alias], cur) => ({id, name, sport, rp, rec, country, n, cur,
+  const row = ([id, name, sport, rp, rec, country, n, alias, fem], cur) => ({id, name, sport, rp, rec, country, n, cur, fem: fem === 'f',
     hay: fdbNorm(`${name} ${alias || ''}`)});
   const ours = FIGHTERS.filter(f => !f.db).map(f => {
     const x = idx.find(r => r[0] === f.id), H = f.history || [];
